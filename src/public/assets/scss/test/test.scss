@@ -5,6 +5,7 @@
 }
 @import "../plugin/mixin/test";
 .frame {
+	position: relative;
 	display: flex;
 	height: 100vh;
 	&-left {
@@ -23,11 +24,27 @@
 		height: inherit;
 		flex: 1 0 auto;
 		padding: 10px;
-		@include flex(column, 10px);
-		&-card {
-			cursor: grab;
-			background-color: lightsalmon;
-			@include square(100px);
+		&-fool {
+			@include flex(column, 10px);
+			&-card {
+				cursor: grab;
+				background-color: lightsalmon;
+				@include square(100px);
+			}
 		}
+	}
+}
+.fool-trigger {
+	animation: fade 500ms linear infinite;
+}
+@keyframes fade {
+	0% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0.8;
+	}
+	100% {
+		opacity: 1;
 	}
 }

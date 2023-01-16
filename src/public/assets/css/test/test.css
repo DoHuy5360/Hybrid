@@ -4,6 +4,7 @@
   box-sizing: border-box; }
 
 .frame {
+  position: relative;
   display: flex;
   height: 100vh; }
   .frame-left {
@@ -21,12 +22,24 @@
     background-color: #eaeaea;
     height: inherit;
     flex: 1 0 auto;
-    padding: 10px;
-    display: flex;
-    gap: 10px;
-    flex-direction: column; }
-    .frame-right-card {
-      cursor: grab;
-      background-color: lightsalmon;
-      width: 100px;
-      height: 100px; }
+    padding: 10px; }
+    .frame-right-fool {
+      display: flex;
+      gap: 10px;
+      flex-direction: column; }
+      .frame-right-fool-card {
+        cursor: grab;
+        background-color: lightsalmon;
+        width: 100px;
+        height: 100px; }
+
+.fool-trigger {
+  animation: fade 500ms linear infinite; }
+
+@keyframes fade {
+  0% {
+    opacity: 1; }
+  50% {
+    opacity: 0.8; }
+  100% {
+    opacity: 1; } }
