@@ -1,0 +1,29 @@
+{
+	"name": "hybrid",
+	"version": "1.0.0",
+	"description": "Wed generator",
+	"main": "index.js",
+	"type": "module",
+	"scripts": {
+		"dev": "nodemon index.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/DoHuy5360/Hybrid.git"
+	},
+	"keywords": [
+		"web"
+	],
+	"author": "DoHuy5360",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/DoHuy5360/Hybrid/issues"
+	},
+	"homepage": "https://github.com/DoHuy5360/Hybrid#readme",
+	"dependencies": {
+		"express": "^4.18.2"
+	},
+	"devDependencies": {
+		"nodemon": "^2.0.20"
+	}
+}
