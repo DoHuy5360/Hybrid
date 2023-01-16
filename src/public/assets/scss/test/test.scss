@@ -1,0 +1,33 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+@import "../plugin/mixin/test";
+.frame {
+	display: flex;
+	height: 100vh;
+	&-left {
+		background-color: lightblue;
+		height: inherit;
+		flex: 5 0 auto;
+		@include center(grid);
+		&-fool {
+			@include square(500px);
+			background-color: lightcyan;
+			border: 3px dashed gray;
+		}
+	}
+	&-right {
+		background-color: #eaeaea;
+		height: inherit;
+		flex: 1 0 auto;
+		padding: 10px;
+		@include flex(column, 10px);
+		&-card {
+			cursor: grab;
+			background-color: lightsalmon;
+			@include square(100px);
+		}
+	}
+}

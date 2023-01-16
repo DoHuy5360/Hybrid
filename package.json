@@ -5,7 +5,8 @@
 	"main": "index.js",
 	"type": "module",
 	"scripts": {
-		"dev": "nodemon index.js"
+		"dev": "nodemon index.js",
+		"scss": "node-sass -w src/public/assets/scss/ -o src/public/assets/css/"
 	},
 	"repository": {
 		"type": "git",
@@ -21,9 +22,11 @@
 	},
 	"homepage": "https://github.com/DoHuy5360/Hybrid#readme",
 	"dependencies": {
-		"express": "^4.18.2"
+		"express": "^4.18.2",
+		"pug": "^3.0.2"
 	},
 	"devDependencies": {
+		"node-sass": "^8.0.0",
 		"nodemon": "^2.0.20"
 	}
 }

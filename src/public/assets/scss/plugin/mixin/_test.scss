@@ -1,0 +1,15 @@
+@mixin flex($direct: row, $gap: 0) {
+	display: flex;
+	gap: $gap;
+	flex-direction: $direct;
+}
+@mixin square($size) {
+	width: $size;
+	height: $size;
+}
+@mixin center($type) {
+	@if $type == "grid" {
+		display: grid;
+		place-items: center;
+	}
+}
