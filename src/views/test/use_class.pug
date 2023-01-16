@@ -5,8 +5,9 @@ html(lang="en")
         meta(http-equiv="X-UA-Compatible", content="IE=edge")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         link(rel="stylesheet", type="text/css", href="../assets/css/test/test.css")
-        title Test view
-    body
+        link(rel="stylesheet", type="text/css", href="../assets/css/test/use_class.css")
+        title Use class
+    body 
         .frame
             .frame-left
                 .frame-left-fool
@@ -15,5 +16,4 @@ html(lang="en")
                     .frame-right-fool-card(draggable="true")
                     .frame-right-fool-card(draggable="true")
                     .frame-right-fool-card(draggable="true")
-
-    script(type="text/javascript",src="../assets/js/test/test.js")
+        script(type="module",src="../assets/js/test/use_class.js")

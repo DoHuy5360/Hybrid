@@ -6,10 +6,8 @@ html(lang="en")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         title Navigate
     body 
+        - testList = ['test','use_class']
         ul
-            li(style="font-size: 50px;")
-                a(href="/test/test") test
-            li(style="font-size: 50px;")
-                a(href="/test/de") de
-            li(style="font-size: 50px;")
-                a(href="") 
+            each name in testList
+                li(style="font-size: 50px;")
+                    a(href=`/test/${name}`) #{name}
