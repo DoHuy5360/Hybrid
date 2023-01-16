@@ -3,5 +3,30 @@
   padding: 0;
   box-sizing: border-box; }
 
-#btn {
-  color: blue; }
+.frame {
+  display: flex;
+  height: 100vh; }
+  .frame-left {
+    background-color: lightblue;
+    height: inherit;
+    flex: 5 0 auto;
+    display: grid;
+    place-items: center; }
+    .frame-left-fool {
+      width: 500px;
+      height: 500px;
+      background-color: lightcyan;
+      border: 3px dashed gray; }
+  .frame-right {
+    background-color: #eaeaea;
+    height: inherit;
+    flex: 1 0 auto;
+    padding: 10px;
+    display: flex;
+    gap: 10px;
+    flex-direction: column; }
+    .frame-right-card {
+      cursor: grab;
+      background-color: lightsalmon;
+      width: 100px;
+      height: 100px; }
