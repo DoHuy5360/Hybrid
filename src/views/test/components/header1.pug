@@ -1,0 +1,22 @@
+extends ../../template/test.pug
+
+block title 
+    title header1
+block link
+    link(rel="stylesheet", href="../assets/css/test/components/header1.css")
+block content 
+    .wrap 
+        .wrap-logo 
+            img(src="../image_placeholder.png", alt="")
+        .wrap-navigate 
+            .wrap-navigate-left
+                .wrap-navigate-option option
+                .wrap-navigate-option option
+                .wrap-navigate-option option
+                .wrap-navigate-option option
+                .wrap-navigate-option option
+            .wrap-navigate-right
+                .wrap-navigate-option option
+
+//- block script 
+//-     script(src="../assets/js/test/recursive.js") 

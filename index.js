@@ -25,6 +25,16 @@ app.get("/test/:branch", (req, res) => {
 		res.render("errors/404");
 	}
 });
+app.get("/components/:branch", (req, res) => {
+	const testPath = __dirname + "/src/views/test/components";
+	const validFileNameList = fs.readdirSync(testPath).map((file) => file.split(".")[0]);
+	const branch = req.params.branch;
+	if (validFileNameList.includes(branch)) {
+		res.render(`test/components/${branch}`);
+	} else {
+		res.render("errors/404");
+	}
+});
 app.get("*", (req, res) => {
 	res.render("errors/404");
 });

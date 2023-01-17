@@ -8,3 +8,8 @@ block content
             each name in testList
                 li(style="font-size: 50px;")
                     a(href=`/test/${name}`) #{name}
+        - testList = ['header1']
+        ul
+            each name in testList
+                li(style="font-size: 50px;")
+                    a(href=`/components/${name}`) #{name}
