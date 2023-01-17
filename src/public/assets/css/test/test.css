@@ -23,15 +23,11 @@
     height: inherit;
     flex: 1 0 auto;
     padding: 10px; }
-    .frame-right-fool {
-      display: flex;
-      gap: 10px;
-      flex-direction: column; }
-      .frame-right-fool-card {
-        cursor: grab;
-        background-color: lightsalmon;
-        width: 100px;
-        height: 100px; }
+    .frame-right-fool-card {
+      cursor: grab;
+      background-color: lightsalmon;
+      width: 100px;
+      height: 100px; }
 
 .fool-trigger {
   animation: fade 500ms linear infinite; }

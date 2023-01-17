@@ -1,9 +1,21 @@
 .frame-right-fool {
   height: inherit;
-  background-color: lightgray; }
+  background-color: lightgray;
+  gap: 5px; }
+  .frame-right-fool-card {
+    background-color: var(--cl); }
 
 .trayOverStyle {
   background-color: lightgreen; }
 
 .cardDragedStyle {
   background-color: red; }
+
+.slot {
+  width: 100%;
+  color: white;
+  padding-left: 20px;
+  background-color: green; }
+
+.slotOverStyle {
+  outline: 3px solid lightsalmon; }
