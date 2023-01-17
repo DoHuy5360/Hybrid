@@ -1,0 +1,45 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: Arial, Helvetica, sans-serif;
+}
+@import "../plugin/mixin/test";
+
+.wrap {
+	@include flex(row, 0);
+	height: 100vh;
+	&-left {
+		width: 80%;
+		height: inherit;
+		background-color: black;
+		@include center(grid);
+		&-tray {
+			@include square(500px);
+			background-color: #939393;
+			transition: 200ms linear;
+		}
+	}
+	&-right {
+		width: 20%;
+		height: inherit;
+		padding: 10px;
+		&-tray {
+			@include flex(column, 1px);
+			background-color: #939393;
+			height: 100%;
+			transition: 200ms linear;
+		}
+	}
+}
+.drag-obj {
+	background-color: white;
+	padding: 5px;
+	cursor: grab;
+}
+.dropOn {
+	background-color: #93939350;
+}
+.dragOn {
+	background-color: #f0808050 !important;
+}

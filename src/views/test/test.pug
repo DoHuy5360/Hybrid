@@ -1,19 +1,18 @@
-doctype html
-html(lang="en")
-    head
-        meta(charset="UTF-8")
-        meta(http-equiv="X-UA-Compatible", content="IE=edge")
-        meta(name="viewport", content="width=device-width, initial-scale=1.0")
-        link(rel="stylesheet", type="text/css", href="../assets/css/test/test.css")
-        title Test view
-    body
-        .frame
-            .frame-left
-                .frame-left-fool
-            .frame-right
-                .frame-right-fool
-                    .frame-right-fool-card(draggable="true")
-                    .frame-right-fool-card(draggable="true")
-                    .frame-right-fool-card(draggable="true")
+extends ../template/test.pug
 
+block title 
+    title Test view
+block link
+    link(rel="stylesheet", type="text/css", href="../assets/css/test/test.css")
+block content
+    .frame
+        .frame-left
+            .frame-left-fool
+        .frame-right
+            .frame-right-fool
+                .frame-right-fool-card(draggable="true")
+                .frame-right-fool-card(draggable="true")
+                .frame-right-fool-card(draggable="true")
+
+block script 
     script(type="text/javascript",src="../assets/js/test/test.js")
