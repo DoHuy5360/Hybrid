@@ -1,20 +1,20 @@
-doctype html
-html(lang="en")
-    head
-        meta(charset="UTF-8")
-        meta(http-equiv="X-UA-Compatible", content="IE=edge")
-        meta(name="viewport", content="width=device-width, initial-scale=1.0")
-        link(rel="stylesheet", type="text/css", href="../assets/css/test/test.css")
-        link(rel="stylesheet", type="text/css", href="../assets/css/test/use_class.css")
-        title Use class
-    body 
-        .frame
-            .frame-left
-                .frame-left-fool
-            .frame-right
-                .frame-right-fool
-                    .frame-right-fool-card(style="--cl: lightyellow" draggable="true") 1
-                    .frame-right-fool-card(style="--cl: lightseagreen" draggable="true") 2
-                    .frame-right-fool-card(style="--cl: lightsalmon" draggable="true") 3
-                    .frame-right-fool-card(style="--cl: lightslategray" draggable="true") 4
-        script(type="module",src="../assets/js/test/use_class.js")
+extends ../template/test.pug
+
+
+block link
+    link(rel="stylesheet", type="text/css", href="../assets/css/test/test.css")
+    link(rel="stylesheet", type="text/css", href="../assets/css/test/use_class.css")
+block title
+    title Use class
+block content
+    .frame
+        .frame-left
+            .frame-left-fool
+        .frame-right
+            .frame-right-fool
+                .frame-right-fool-card(style="--cl: lightyellow" draggable="true") 1
+                .frame-right-fool-card(style="--cl: lightseagreen" draggable="true") 2
+                .frame-right-fool-card(style="--cl: lightsalmon" draggable="true") 3
+                .frame-right-fool-card(style="--cl: lightslategray" draggable="true") 4
+block script
+    script(type="module",src="../assets/js/test/use_class.js")
