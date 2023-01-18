@@ -39,6 +39,7 @@ class INTERACTIVE {
 			},
 			drop: (action) => {
 				this.identify.addEventListener("drop", (e) => {
+					e.stopImmediatePropagation();
 					action(this.identify, e);
 				});
 			},
@@ -46,6 +47,13 @@ class INTERACTIVE {
 		implement(actions);
 		return this;
 	}
+	// drag_only() {
+	// 	this.identify.addEventListener("dragstart", (e) => {
+	// 		e.stopImmediatePropagation();
+	// 	});
+	// 	this.identify.addEventListener("drag", (e) => {});
+	// 	this.identify.addEventListener("dragend", (e) => {});
+	// }
 	add_class(style) {
 		this.identify.classList.add(style);
 	}
