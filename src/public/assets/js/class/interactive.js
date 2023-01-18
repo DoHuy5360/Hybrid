@@ -43,17 +43,17 @@ class INTERACTIVE {
 					action(this.identify, e);
 				});
 			},
+			contextmenu: (action) => {
+				this.identify.addEventListener("contextmenu", (e) => {
+					e.preventDefault();
+					e.stopImmediatePropagation();
+					action(this.identify, e);
+				});
+			},
 		};
 		implement(actions);
 		return this;
 	}
-	// drag_only() {
-	// 	this.identify.addEventListener("dragstart", (e) => {
-	// 		e.stopImmediatePropagation();
-	// 	});
-	// 	this.identify.addEventListener("drag", (e) => {});
-	// 	this.identify.addEventListener("dragend", (e) => {});
-	// }
 	add_class(style) {
 		this.identify.classList.add(style);
 	}
