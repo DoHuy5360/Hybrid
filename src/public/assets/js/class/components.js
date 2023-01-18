@@ -1,4 +1,4 @@
-import { convertCode, getTemporary } from "../test/reference.js";
+import { contextHead, convertCode, getTemporary } from "../test/reference.js";
 import DOM_FACTORY from "./DOM_factory.js";
 import INTERACTIVE from "./interactive.js";
 
@@ -30,10 +30,6 @@ class COMPONENTS extends DOM_FACTORY {
 			);
 			slot.can_move(false);
 			slot.control((on) => {
-				// on.dragstart((thisSlot, e) => {
-				// 	e.preventDefault();
-				// 	console.log(1);
-				// });
 				on.dragover(() => {
 					slot.add_class("dragOn");
 				});
@@ -42,37 +38,18 @@ class COMPONENTS extends DOM_FACTORY {
 				});
 				on.drop((thisTray, e) => {
 					slot.remove_class("dragOn");
-					// thisTray.appendChild(getTemporary());
 					const code = getTemporary().getAttribute("data-components");
 					const domAfter = convertCode(code)();
 					if (domAfter) {
 						thisTray.appendChild(domAfter);
 					}
 				});
+				on.contextmenu((thisTray, e) => {
+					contextHead.set_context_for(thisTray, ["_delete", "_doSomething"]);
+				});
 			});
 			tray.appendChild(slot.zip());
 		}
-		// 	slot.can_move(true);
-		// 	slot.control((on) => {
-		// 		on.dragstart((thisSlot, e) => {
-		// 			const time = new Date();
-		// 			const idSeconds = time.getMilliseconds();
-		// 			thisSlot.id = idSeconds;
-		// 			e.dataTransfer.setData("idSeconds", idSeconds);
-		// 		});
-		// 		on.dragover(() => {
-		// 			slot.add_class("dragOn");
-		// 		});
-		// 		on.dragleave(() => {
-		// 			slot.remove_class("dragOn");
-		// 		});
-		// 		on.drop((thisSlot, e) => {
-		// 			slot.remove_class("dragOn");
-		// 			console.warn("Can not drop over slot!");
-		// 		});
-		// 	});
-		// 	tray.appendChild(slot.zip());
-		// }
 		return tray;
 	}
 }

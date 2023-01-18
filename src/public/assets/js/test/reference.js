@@ -1,6 +1,9 @@
 import COMPONENTS from "../class/components.js";
+import CONTEXT_ACTION from "../class/context_action.js";
 import DOM_FACTORY from "../class/DOM_factory.js";
 import INTERACTIVE from "../class/interactive.js";
+
+const contextHead = new CONTEXT_ACTION(document.getElementById("context-head"));
 
 let temporary;
 
@@ -25,6 +28,9 @@ function convertCode(data) {
 				on.dragstart((thisBtn, e) => {
 					setTemporary(thisBtn);
 				});
+				on.contextmenu((thisBtn) => {
+					contextHead.set_context_for(thisBtn, ["_delete"]);
+				});
 			});
 			return buttonObj;
 		},
@@ -38,10 +44,7 @@ function convertCode(data) {
 		},
 	};
 
-	return checker[data] || echo;
-}
-function echo() {
-	alert("Invalid");
+	return checker[data] || getTemporary;
 }
 
-export { setTemporary, getTemporary, convertCode };
+export { setTemporary, getTemporary, convertCode, contextHead };
