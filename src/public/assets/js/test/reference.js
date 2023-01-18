@@ -20,6 +20,8 @@ function convertCode(data) {
 			const buttonObj = buttonBank.create({
 				type: "button",
 				text: "Punch me!",
+				width: "100%",
+				"word-break": "break-word",
 				attribute: { type: "button" },
 			});
 			const buttonInt = new INTERACTIVE(buttonObj);
@@ -34,13 +36,43 @@ function convertCode(data) {
 			});
 			return buttonObj;
 		},
-		header2: () => {
-			const newTray = new COMPONENTS();
-			return newTray.horizontal(4, {
-				display: "flex",
-				height: "100px",
-				gap: "1px",
+		input: () => {
+			const inpBank = new DOM_FACTORY();
+			const inpObj = inpBank.create({ type: "input", css: { width: "100%", height: "100%", resize: "unset" }, attribute: {} });
+			const inpInt = new INTERACTIVE(inpObj);
+			inpInt.can_move(true);
+			inpInt.control((on) => {
+				on.dragstart((thisInp) => {
+					setTemporary(thisInp);
+				});
+				on.contextmenu((thisInp) => {
+					contextHead.set_context_for(thisInp, ["_delete"]);
+				});
 			});
+			return inpObj;
+		},
+		textarea: () => {
+			const textareaBank = new DOM_FACTORY();
+			const textareaObj = textareaBank.create({ type: "textarea", css: { width: "100%", height: "100%", resize: "unset" }, attribute: {} });
+			const textareaInt = new INTERACTIVE(textareaObj);
+			textareaInt.can_move(true);
+			textareaInt.control((on) => {
+				on.dragstart((thisArea) => {
+					setTemporary(thisArea);
+				});
+				on.contextmenu((thisArea) => {
+					contextHead.set_context_for(thisArea, ["_delete"]);
+				});
+			});
+			return textareaObj;
+		},
+		horizontal_socket: () => {
+			const newTray = new COMPONENTS();
+			return newTray.socket(4, { "flex-direction": "row" });
+		},
+		vertical_socket: () => {
+			const newTray = new COMPONENTS();
+			return newTray.socket(4, { "flex-direction": "column" });
 		},
 	};
 

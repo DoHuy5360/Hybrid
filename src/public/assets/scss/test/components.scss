@@ -7,39 +7,59 @@
 @import "../plugin/mixin/test";
 
 .wrap {
-	@include flex(row, 0);
 	height: 100vh;
 	&-left {
-		width: 90%;
-		height: inherit;
-		background-color: black;
+		width: 100%;
+		height: calc(100% - 51px);
 		@include flex(column, 1px);
-		&-option-bar {
-			height: 5%;
-			background-color: #939393;
-			@include flex(row, 10px);
-			align-items: center;
-			padding: 0 10px;
+		background-color: #939393;
+		.contain-top {
+			@include flex(row);
+			background-color: #555555;
+			padding: 5px 10px;
+			position: sticky;
+			top: 0;
+			justify-content: space-between;
+			.option-bar {
+				@include flex(row, 10px);
+				align-items: center;
+			}
+			.option-frame {
+				@include flex(row, 4px);
+				input {
+					width: 100px;
+					padding: 0 5px;
+				}
+				select {
+					cursor: pointer;
+					user-select: none;
+				}
+			}
 		}
 		&-contain {
-			@include center(grid);
-			height: 95%;
+			height: 100%;
+			overflow: scroll;
 			&-tray {
-				@include square(500px);
-				background-color: #939393;
+				width: 100%;
+				height: 100%;
+				margin: auto;
+				background-color: #555555;
 				transition: 200ms linear;
+				@include flex(column, 0);
 			}
 		}
 	}
 	&-right {
-		width: 10%;
-		height: inherit;
+		width: 100%;
 		padding: 10px;
+		position: sticky;
+		bottom: 0;
+		background-color: white;
 		&-tray {
-			@include flex(column, 1px);
+			@include flex(row, 1px);
 			background-color: #939393;
-			height: 100%;
-			transition: 200ms linear;
+			width: 100%;
+			padding: 1px;
 		}
 	}
 }

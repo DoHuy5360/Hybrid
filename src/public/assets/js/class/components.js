@@ -6,10 +6,16 @@ class COMPONENTS extends DOM_FACTORY {
 	constructor() {
 		super();
 	}
-	horizontal(slots = 1, css = {}) {
+	socket(slots = 1, css = {}) {
 		const tray = this.create({
 			type: "div",
-			css,
+			css: {
+				...css,
+				display: "flex",
+				gap: "4px",
+				width: "100%",
+				height: "100%",
+			},
 			attribute: {
 				draggable: false,
 			},
@@ -19,7 +25,7 @@ class COMPONENTS extends DOM_FACTORY {
 				this.create({
 					type: "div",
 					css: {
-						width: `calc(100% / ${slots})`,
+						width: "100%",
 						height: "100%",
 						background: "#f5f5f550",
 					},

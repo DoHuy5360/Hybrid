@@ -47,3 +47,20 @@ dropObject.forEach((obj) => {
 		});
 	});
 });
+const frameMain = document.querySelector(".wrap-left-contain-tray");
+const frameWidth = document.getElementById("frame-width");
+const frameHeight = document.getElementById("frame-height");
+frameWidth.addEventListener("change", (e) => {
+	frameMain.style.width = `${frameWidth.value}px`;
+});
+frameHeight.addEventListener("change", (e) => {
+	frameMain.style.height = `${frameHeight.value}px`;
+});
+const frameSize = document.getElementById("frame-size");
+frameSize.addEventListener("change", (e) => {
+	const [width, height] = frameSize.value.split("x");
+	frameMain.style.width = `${width}px`;
+	frameMain.style.height = `${height}px`;
+	frameWidth.value = width;
+	frameHeight.value = height;
+});
