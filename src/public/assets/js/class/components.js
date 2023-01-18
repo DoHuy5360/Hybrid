@@ -36,16 +36,21 @@ class COMPONENTS extends DOM_FACTORY {
 				on.dragleave(() => {
 					slot.remove_class("dragOn");
 				});
-				on.drop((thisTray, e) => {
+				on.drop((thisSlot, e) => {
 					slot.remove_class("dragOn");
 					const code = getTemporary().getAttribute("data-components");
 					const domAfter = convertCode(code)();
 					if (domAfter) {
-						thisTray.appendChild(domAfter);
+						thisSlot.appendChild(domAfter);
 					}
 				});
-				on.contextmenu((thisTray, e) => {
-					contextHead.set_context_for(thisTray, ["_delete", "_doSomething"]);
+				on.contextmenu((thisSlot, e) => {
+					const parent = thisSlot.parentNode;
+					contextHead.set_context_for(thisSlot, ["_delete", "_doSomething"], () => {
+						if (parent.childElementCount === 0) {
+							parent.remove();
+						}
+					});
 				});
 			});
 			tray.appendChild(slot.zip());

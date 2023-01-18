@@ -2,7 +2,7 @@ import INTERACTIVE from "../class/interactive.js";
 import HEADER from "./components/header.js";
 import COMPONENTS from "../class/components.js";
 import DOM_FACTORY from "../class/DOM_factory.js";
-import { setTemporary, getTemporary, convertCode } from "./reference.js";
+import { setTemporary, getTemporary, convertCode, contextHead } from "./reference.js";
 
 const wrapObjects = document.querySelector(".wrap");
 wrapObjects.addEventListener("dragstart", (e) => {
@@ -41,6 +41,9 @@ dropObject.forEach((obj) => {
 			if (domAfter) {
 				thisObj.appendChild(domAfter);
 			}
+		});
+		on.contextmenu((thisDrop) => {
+			contextHead.set_context_for(thisDrop, ["_clear"]);
 		});
 	});
 });
