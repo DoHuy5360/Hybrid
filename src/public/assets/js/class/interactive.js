@@ -50,6 +50,12 @@ class INTERACTIVE {
 					action(this.identify, e);
 				});
 			},
+			click: (action) => {
+				this.identify.addEventListener("click", (e) => {
+					e.stopImmediatePropagation();
+					action(this.identify, e);
+				});
+			},
 		};
 		implement(actions);
 		return this;

@@ -51,16 +51,23 @@ const frameMain = document.querySelector(".wrap-left-contain-tray");
 const frameWidth = document.getElementById("frame-width");
 const frameHeight = document.getElementById("frame-height");
 frameWidth.addEventListener("change", (e) => {
-	frameMain.style.width = `${frameWidth.value}px`;
+	frameMain.style.width = frameWidth.value;
 });
 frameHeight.addEventListener("change", (e) => {
-	frameMain.style.height = `${frameHeight.value}px`;
+	frameMain.style.height = frameHeight.value;
 });
 const frameSize = document.getElementById("frame-size");
 frameSize.addEventListener("change", (e) => {
-	const [width, height] = frameSize.value.split("x");
-	frameMain.style.width = `${width}px`;
-	frameMain.style.height = `${height}px`;
-	frameWidth.value = width;
-	frameHeight.value = height;
+	const [width, height] = frameSize.value.split(".");
+	frameMain.style.width = width;
+	frameMain.style.height = height;
+	let newW = replaceUnit(width);
+	let newH = replaceUnit(height);
+	frameWidth.value = newW;
+	frameHeight.value = newH;
 });
+function replaceUnit(arg) {
+	let replacePercent = arg.replace("%", "");
+	let replacePixel = replacePercent.replace("px", "");
+	return replacePixel;
+}

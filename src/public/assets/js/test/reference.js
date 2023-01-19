@@ -68,11 +68,11 @@ function convertCode(data) {
 		},
 		horizontal_socket: () => {
 			const newTray = new COMPONENTS();
-			return newTray.socket(4, { "flex-direction": "row" });
+			return newTray.socket(2, { "flex-direction": "row" });
 		},
 		vertical_socket: () => {
 			const newTray = new COMPONENTS();
-			return newTray.socket(4, { "flex-direction": "column" });
+			return newTray.socket(2, { "flex-direction": "column" });
 		},
 	};
 
