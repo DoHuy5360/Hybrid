@@ -2,7 +2,7 @@ import INTERACTIVE from "../class/interactive.js";
 import HEADER from "./components/header.js";
 import COMPONENTS from "../class/components.js";
 import DOM_FACTORY from "../class/DOM_factory.js";
-import { setTemporary, getTemporary, convertCode } from "./reference.js";
+import { setTemporary, getTemporary, convertCode, contextHead } from "./reference.js";
 
 const wrapObjects = document.querySelector(".wrap");
 wrapObjects.addEventListener("dragstart", (e) => {
@@ -42,5 +42,25 @@ dropObject.forEach((obj) => {
 				thisObj.appendChild(domAfter);
 			}
 		});
+		on.contextmenu((thisDrop) => {
+			contextHead.set_context_for(thisDrop, ["_clear"]);
+		});
 	});
+});
+const frameMain = document.querySelector(".wrap-left-contain-tray");
+const frameWidth = document.getElementById("frame-width");
+const frameHeight = document.getElementById("frame-height");
+frameWidth.addEventListener("change", (e) => {
+	frameMain.style.width = `${frameWidth.value}px`;
+});
+frameHeight.addEventListener("change", (e) => {
+	frameMain.style.height = `${frameHeight.value}px`;
+});
+const frameSize = document.getElementById("frame-size");
+frameSize.addEventListener("change", (e) => {
+	const [width, height] = frameSize.value.split("x");
+	frameMain.style.width = `${width}px`;
+	frameMain.style.height = `${height}px`;
+	frameWidth.value = width;
+	frameHeight.value = height;
 });

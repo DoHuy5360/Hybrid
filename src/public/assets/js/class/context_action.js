@@ -5,7 +5,7 @@ class CONTEXT_ACTION extends DOM_FACTORY {
 		super();
 		this.identify = identify;
 	}
-	set_context_for(dom, options = []) {
+	set_context_for(dom, options = [], consequence = () => {}) {
 		this.clear_inside(this.identify);
 		const referenceCSS = {
 			cursor: "pointer",
@@ -16,6 +16,16 @@ class CONTEXT_ACTION extends DOM_FACTORY {
 				btn.addEventListener("click", (e) => {
 					this.delete(dom);
 					this.clear_inside(this.identify);
+					consequence();
+				});
+				return btn;
+			},
+			_clear: () => {
+				const btn = this.create({ type: "button", text: "Clear All", css: { ...referenceCSS }, attribute: {} });
+				btn.addEventListener("click", (e) => {
+					this.clear_inside(dom);
+					this.clear_inside(this.identify);
+					consequence();
 				});
 				return btn;
 			},

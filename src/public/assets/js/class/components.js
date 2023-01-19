@@ -6,10 +6,16 @@ class COMPONENTS extends DOM_FACTORY {
 	constructor() {
 		super();
 	}
-	horizontal(slots = 1, css = {}) {
+	socket(slots = 1, css = {}) {
 		const tray = this.create({
 			type: "div",
-			css,
+			css: {
+				...css,
+				display: "flex",
+				gap: "4px",
+				width: "100%",
+				height: "100%",
+			},
 			attribute: {
 				draggable: false,
 			},
@@ -19,7 +25,7 @@ class COMPONENTS extends DOM_FACTORY {
 				this.create({
 					type: "div",
 					css: {
-						width: `calc(100% / ${slots})`,
+						width: "100%",
 						height: "100%",
 						background: "#f5f5f550",
 					},
@@ -36,16 +42,21 @@ class COMPONENTS extends DOM_FACTORY {
 				on.dragleave(() => {
 					slot.remove_class("dragOn");
 				});
-				on.drop((thisTray, e) => {
+				on.drop((thisSlot, e) => {
 					slot.remove_class("dragOn");
 					const code = getTemporary().getAttribute("data-components");
 					const domAfter = convertCode(code)();
 					if (domAfter) {
-						thisTray.appendChild(domAfter);
+						thisSlot.appendChild(domAfter);
 					}
 				});
-				on.contextmenu((thisTray, e) => {
-					contextHead.set_context_for(thisTray, ["_delete", "_doSomething"]);
+				on.contextmenu((thisSlot, e) => {
+					const parent = thisSlot.parentNode;
+					contextHead.set_context_for(thisSlot, ["_delete", "_doSomething"], () => {
+						if (parent.childElementCount === 0) {
+							parent.remove();
+						}
+					});
 				});
 			});
 			tray.appendChild(slot.zip());
