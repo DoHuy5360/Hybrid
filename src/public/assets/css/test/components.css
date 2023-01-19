@@ -12,7 +12,7 @@
     display: flex;
     gap: 1px;
     flex-direction: column;
-    background-color: #939393; }
+    background-color: #111111; }
     .wrap-left .contain-top {
       display: flex;
       gap: 0;
@@ -41,13 +41,13 @@
       height: 100%;
       overflow: scroll; }
       .wrap-left-contain-tray {
-        width: 100%;
-        height: 100%;
+        width: 1200px;
+        height: 900px;
         margin: auto;
         background-color: #555555;
         transition: 200ms linear;
         display: flex;
-        gap: 0;
+        gap: 4px;
         flex-direction: column; }
   .wrap-right {
     width: 100%;
@@ -73,3 +73,7 @@
 
 .dragOn {
   background-color: #f0808050 !important; }
+
+.selected {
+  background-color: lightblue !important;
+  justify-content: spa; }

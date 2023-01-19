@@ -14,5 +14,15 @@ class DOM_FACTORY {
 		}
 		return dom;
 	}
+	create_option(options = {}, { selected = 0 }) {
+		const select = this.create({ type: "select", css: {} });
+		Object.keys(options).forEach((opt, idx) => {
+			const value = options[opt];
+			const defaultSelect = selected == idx ? { selected: "selected" } : {};
+			const option = this.create({ type: "option", text: opt, attribute: { value: value, ...defaultSelect } });
+			select.appendChild(option);
+		});
+		return select;
+	}
 }
 export default DOM_FACTORY;
