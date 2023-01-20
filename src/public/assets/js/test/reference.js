@@ -4,7 +4,8 @@ import DOM_FACTORY from "../class/DOM_factory.js";
 import INTERACTIVE from "../class/interactive.js";
 
 const contextHead = new CONTEXT_ACTION(document.getElementById("context-head"));
-
+const contextLeft = new CONTEXT_ACTION(document.querySelector(".config-option"));
+contextLeft.search_field = document.getElementById("search-attribute");
 let temporary;
 
 function setTemporary(dom) {
@@ -31,6 +32,7 @@ function convertCode(data) {
 					setTemporary(thisBtn);
 				});
 				on.contextmenu((thisBtn) => {
+					contextLeft.set_context_for(thisBtn, ["_config"]);
 					contextHead.set_context_for(thisBtn, ["_delete"]);
 				});
 			});
@@ -46,6 +48,7 @@ function convertCode(data) {
 					setTemporary(thisInp);
 				});
 				on.contextmenu((thisInp) => {
+					contextLeft.set_context_for(thisInp, ["_config"]);
 					contextHead.set_context_for(thisInp, ["_delete"]);
 				});
 			});
@@ -61,6 +64,7 @@ function convertCode(data) {
 					setTemporary(thisArea);
 				});
 				on.contextmenu((thisArea) => {
+					contextLeft.set_context_for(thisArea, ["_config"]);
 					contextHead.set_context_for(thisArea, ["_delete"]);
 				});
 			});
@@ -74,9 +78,13 @@ function convertCode(data) {
 			const newTray = new COMPONENTS();
 			return newTray.socket(2, { "flex-direction": "column" });
 		},
+		slot: () => {
+			const newSlot = new COMPONENTS();
+			return newSlot.slot();
+		},
 	};
 
 	return checker[data] || getTemporary;
 }
 
-export { setTemporary, getTemporary, convertCode, contextHead };
+export { setTemporary, getTemporary, convertCode, contextHead, contextLeft };

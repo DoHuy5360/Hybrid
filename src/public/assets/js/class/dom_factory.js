@@ -24,5 +24,13 @@ class DOM_FACTORY {
 		});
 		return select;
 	}
+	create_data_list(id, values = []) {
+		const dataList = this.create({ type: "datalist", attribute: { id } });
+		values.forEach((value) => {
+			const option = this.create({ type: "option", attribute: { value: value } });
+			dataList.appendChild(option);
+		});
+		return dataList;
+	}
 }
 export default DOM_FACTORY;

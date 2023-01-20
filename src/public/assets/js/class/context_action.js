@@ -70,6 +70,59 @@ class CONTEXT_ACTION extends DOM_FACTORY {
 				});
 				return btn;
 			},
+			_config: () => {
+				this.clear_inside(this.identify);
+				const attrsWrap = this.create({
+					type: "div",
+					css: {
+						display: "flex",
+						"flex-direction": "column",
+						gap: "3px",
+						padding: "0 4px",
+						background: "#eaeaea",
+					},
+				});
+				const attributes = [];
+				Object.keys(dom.style).forEach((attr) => {
+					if (isNaN(attr)) {
+						attributes.push(attr);
+						const wrap = this.create({ type: "div", css: { display: "flex", gap: "5px" } });
+						const attrsKey = this.create({
+							type: "div",
+							text: attr,
+							attribute: {
+								class: "list-attributes",
+							},
+						});
+						const attrsValue = this.create({
+							type: "input",
+							attribute: {
+								value: dom.style[attr],
+							},
+							css: {
+								background: "lightpink",
+								width: "100%",
+								outline: "unset",
+								border: "1px solid #939393",
+								padding: "0 5px",
+							},
+						});
+						const pack = [attrsKey, attrsValue];
+						pack.forEach((ele) => {
+							wrap.appendChild(ele);
+						});
+						attrsWrap.appendChild(wrap);
+						attrsValue.addEventListener("change", (e) => {
+							dom.style[attr] = attrsValue.value;
+						});
+					}
+				});
+				if (this.search_field) {
+					const searchBar = this.create_data_list("attributes", attributes);
+					this.search_field.appendChild(searchBar);
+				}
+				return attrsWrap;
+			},
 		};
 		if (!this.previous_dom_selected) {
 			dom.classList.add("selected");

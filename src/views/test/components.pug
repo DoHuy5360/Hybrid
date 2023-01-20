@@ -8,15 +8,21 @@ block link
 block content 
     .wrap 
         .wrap-left 
+            .setting-bar
+                .wrap-toggle
+                    #search-attribute
+                        input#search-attribute-input(type="text", list="attributes")
+                    input.toggle(type="checkbox")
+                .config-option
             .contain-top
                 .option-bar#context-head
                 .option-frame
-                    select#frame-size()
+                    select#frame-size
                         option(value="1200px.900px") 1200x900
                         option(value="100%.100%") Full
                         option(value="1000px.900px") 1000x900
                         option(value="900px.900px") 900x900
-                        option(value="1920px.108px0")  1920x1080
+                        option(value="1920px.1080px")  1920x1080
                     input#frame-width(value="1200", type="text", min="0" , placeholder="width")
                     input#frame-height(value="900", type="text", min="0" , placeholder="height")
             .wrap-left-contain 
@@ -28,6 +34,7 @@ block content
                 .drag-obj(disable='true', data-components="textarea") textarea
                 .drag-obj(disable='true', data-components="horizontal_socket") Horizontal Socket
                 .drag-obj(disable='true', data-components="vertical_socket") Vertical Socket
+                .drag-obj(disable='true', data-components="slot") Slot
 
 block script
     script(type="module" src="../assets/js/test/components.js") 
