@@ -13,6 +13,41 @@
 		height: calc(100% - 51px);
 		@include flex(column, 1px);
 		background-color: #111111;
+		.setting-bar {
+			position: fixed;
+			left: 0;
+			background-color: #eaeaea1c;
+			width: 15px;
+			transition: 200ms linear;
+			.wrap-toggle {
+				width: 100%;
+				text-align: right;
+				background-color: #eaeaea;
+				margin-top: 30px;
+				@include flex(row, 5px);
+				justify-content: right;
+				#search-attribute {
+					width: 100%;
+					padding-bottom: 2px;
+					input {
+						width: 100%;
+						outline: unset;
+						padding: 0 5px;
+					}
+				}
+				.toggle {
+					cursor: pointer;
+				}
+			}
+			.config-option {
+				height: calc(100vh - 120px);
+				overflow-x: hidden;
+				overflow-y: scroll;
+			}
+		}
+		.setting-bar:has(.toggle:checked) {
+			width: 380px;
+		}
 		.contain-top {
 			@include flex(row);
 			background-color: #555555;
@@ -76,5 +111,4 @@
 }
 .selected {
 	background-color: lightblue !important;
-	justify-content: spa;
 }

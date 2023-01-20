@@ -51,10 +51,10 @@ const frameMain = document.querySelector(".wrap-left-contain-tray");
 const frameWidth = document.getElementById("frame-width");
 const frameHeight = document.getElementById("frame-height");
 frameWidth.addEventListener("change", (e) => {
-	frameMain.style.width = frameWidth.value;
+	frameMain.style.width = frameWidth.value + "px";
 });
 frameHeight.addEventListener("change", (e) => {
-	frameMain.style.height = frameHeight.value;
+	frameMain.style.height = frameHeight.value + "px";
 });
 const frameSize = document.getElementById("frame-size");
 frameSize.addEventListener("change", (e) => {
@@ -71,3 +71,16 @@ function replaceUnit(arg) {
 	let replacePixel = replacePercent.replace("px", "");
 	return replacePixel;
 }
+const searchInp = document.getElementById("search-attribute-input");
+searchInp.addEventListener("input", (e) => {
+	const listAttribute = document.querySelectorAll(".list-attributes");
+	const value = searchInp.value;
+	const regex = new RegExp(value, "g");
+	[...listAttribute].forEach((attr) => {
+		if (regex.test(attr.innerText)) {
+			attr.parentNode.style.display = "flex";
+		} else {
+			attr.parentNode.style.display = "none";
+		}
+	});
+});
