@@ -93,11 +93,11 @@
       background-color: #f1f1f1;
       width: 100%;
       padding: 1px; }
-
-.drag-obj {
-  background-color: white;
-  padding: 5px;
-  cursor: grab; }
+      .wrap-right-tray .drag-obj {
+        background-color: white;
+        padding: 7px 13px;
+        cursor: grab;
+        font-size: 12px; }
 
 .dropOn {
   background-color: #93939350; }
