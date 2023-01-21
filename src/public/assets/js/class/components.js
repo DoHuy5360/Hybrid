@@ -97,10 +97,10 @@ class COMPONENTS extends DOM_FACTORY {
 				css: {
 					width: "100%",
 					height: "100%",
-					background: "#f5f5f550",
+					background: "#ffffff",
 					display: "flex",
 					gap: "4px",
-					border: "3px dashed black",
+					border: "1px dashed black",
 				},
 				// attribute: {
 				// 	"data-components": "slot",
