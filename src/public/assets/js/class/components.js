@@ -6,7 +6,7 @@ class COMPONENTS extends DOM_FACTORY {
 	constructor() {
 		super();
 	}
-	socket(slots = 1, css = {}) {
+	create_socket(slots = 1, css = {}) {
 		const tray = this.create({
 			type: "div",
 			css: {
@@ -90,7 +90,7 @@ class COMPONENTS extends DOM_FACTORY {
 		}
 		return tray;
 	}
-	slot() {
+	create_slot() {
 		const slot = new INTERACTIVE(
 			this.create({
 				type: "div",
