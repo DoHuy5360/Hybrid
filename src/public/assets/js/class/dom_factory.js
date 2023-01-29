@@ -1,5 +1,10 @@
-class DOM_FACTORY {
-	constructor() {}
+import { contextHead, contextLeft, setTemporary } from "../test/reference.js";
+import INTERACTIVE from "./interactive.js";
+
+class DOM_FACTORY extends INTERACTIVE {
+	constructor() {
+		super();
+	}
 	create({ type = "div", text = "", css = {}, attribute = {} }) {
 		const dom = document.createElement(type);
 		dom.textContent = text;
@@ -31,6 +36,110 @@ class DOM_FACTORY {
 			dataList.appendChild(option);
 		});
 		return dataList;
+	}
+	create_button() {
+		this.identify = this.create({
+			type: "button",
+			text: "Button",
+			css: {
+				width: "fit-content",
+				background: "#eaeaea",
+				"word-break": "break-word",
+				padding: "5px 10px",
+				cursor: "grab",
+				"font-size": "14px",
+			},
+			attribute: { type: "button" },
+		});
+		this.can_move(true);
+		this.control((on) => {
+			on.dragstart((thisBtn, e) => {
+				setTemporary(thisBtn);
+			});
+			on.contextmenu((thisBtn) => {
+				contextLeft.set_context_for(thisBtn, ["_config"]);
+				contextHead.set_context_for(thisBtn, ["_delete"]);
+			});
+		});
+		return this.identify;
+	}
+	create_input() {
+		this.identify = this.create({
+			type: "input",
+			css: {
+				outline: "unset",
+				border: "1px solid #eaeaea",
+				padding: "2px 4px",
+				width: "fit-content",
+				height: "fit-content",
+			},
+			attribute: {
+				spellcheck: "false",
+			},
+		});
+		this.can_move(true);
+		this.control((on) => {
+			on.dragstart((thisInp) => {
+				setTemporary(thisInp);
+			});
+			on.contextmenu((thisInp) => {
+				contextLeft.set_context_for(thisInp, ["_config"]);
+				contextHead.set_context_for(thisInp, ["_delete"]);
+			});
+		});
+		return this.identify;
+	}
+	create_textarea() {
+		this.identify = this.create({
+			type: "textarea",
+			css: {
+				outline: "unset",
+				border: "1px solid #eaeaea",
+				padding: "2px 4px",
+				width: "fit-content",
+				height: "fit-content",
+			},
+			attribute: {
+				spellcheck: "false",
+			},
+		});
+		this.can_move(true);
+		this.control((on) => {
+			on.dragstart((thisArea) => {
+				setTemporary(thisArea);
+			});
+			on.contextmenu((thisArea) => {
+				contextLeft.set_context_for(thisArea, ["_config"]);
+				contextHead.set_context_for(thisArea, ["_delete"]);
+			});
+		});
+		return this.identify;
+	}
+	create_image() {
+		this.identify = this.create({
+			type: "img",
+			css: {
+				// outline: "unset",
+				// border: "1px solid #eaeaea",
+				// padding: "2px 4px",
+				width: "100px",
+				height: "100px",
+			},
+			attribute: {
+				src: "/image_placeholder.png",
+			},
+		});
+		this.can_move(true);
+		this.control((on) => {
+			on.dragstart((thisInp) => {
+				setTemporary(thisInp);
+			});
+			on.contextmenu((thisInp) => {
+				contextLeft.set_context_for(thisInp, ["_config"]);
+				contextHead.set_context_for(thisInp, ["_delete"]);
+			});
+		});
+		return this.identify;
 	}
 }
 export default DOM_FACTORY;

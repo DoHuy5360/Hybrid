@@ -1,0 +1,25 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        link(rel="stylesheet", href="../assets/css/test/components/fork.css")
+        link(rel="stylesheet", href="../assets/css/test/tray.css")
+        script(type="module",src="../assets/js/test/tray.js") 
+        //- todo: plugin
+        link(rel="stylesheet", href="../assets/css/test/components/header1.css")
+        title Tray
+    body 
+        div.h-100vh.flex-col
+            div.h-100vh.bg-custom.flex-col#tray(style="--bg: #f8f8f8;")
+            div.h-custom.bg-custom.sticky-b0.flex-row.between.transition300ms#trayComponents(style="--h: 28px; --bg: #eaeaea;")
+                div.flex-col.w-100pc
+                    div.flex-row
+                        div.p4.no-select.pointer Header
+                        div.p4.no-select.pointer Body
+                        div.p4.no-select.pointer Footer
+                    div.flex-row.h-100pc#components_tray
+                        div.p4.grab.cake.bg-custom(style="--bg: lightblue;", data-code="header1") example
+                label.pointer(for="options") Options
+                    input#options(type="checkbox", hidden="true", checked="true") 

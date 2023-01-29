@@ -8,6 +8,7 @@
 
 .wrap {
 	height: 100vh;
+	background-color: #f7f7f7;
 	&-left {
 		width: 100%;
 		height: calc(100% - 51px);
@@ -51,7 +52,7 @@
 		.contain-top {
 			@include flex(row);
 			background-color: #555555;
-			padding: 5px 10px;
+			padding: 5px;
 			position: sticky;
 			top: 0;
 			justify-content: space-between;
@@ -86,29 +87,31 @@
 	}
 	&-right {
 		width: 100%;
-		padding: 10px;
+		padding: 0 5px;
 		position: sticky;
 		bottom: 0;
 		background-color: white;
 		&-tray {
 			@include flex(row, 1px);
-			background-color: #939393;
+			background-color: #f1f1f1;
 			width: 100%;
 			padding: 1px;
+			.drag-obj {
+				background-color: white;
+				padding: 7px 13px;
+				cursor: grab;
+				font-size: 12px;
+			}
 		}
 	}
 }
-.drag-obj {
-	background-color: white;
-	padding: 5px;
-	cursor: grab;
-}
+
 .dropOn {
 	background-color: #93939350;
 }
 .dragOn {
-	background-color: #f0808050 !important;
+	background-color: #90ee909a !important;
 }
 .selected {
-	background-color: lightblue !important;
+	background-color: #add8e69d !important;
 }

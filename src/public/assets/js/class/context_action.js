@@ -86,10 +86,20 @@ class CONTEXT_ACTION extends DOM_FACTORY {
 				Object.keys(dom.style).forEach((attr) => {
 					if (isNaN(attr)) {
 						attributes.push(attr);
-						const wrap = this.create({ type: "div", css: { display: "flex", gap: "5px" } });
+						const wrap = this.create({
+							type: "div",
+							css: {
+								display: "flex",
+								gap: "5px",
+								padding: "2px 0",
+							},
+						});
 						const attrsKey = this.create({
 							type: "div",
 							text: attr,
+							css: {
+								"font-size": "14px",
+							},
 							attribute: {
 								class: "list-attributes",
 							},
@@ -100,11 +110,12 @@ class CONTEXT_ACTION extends DOM_FACTORY {
 								value: dom.style[attr],
 							},
 							css: {
-								background: "lightpink",
+								background: "#ffffff",
 								width: "100%",
 								outline: "unset",
 								border: "1px solid #939393",
 								padding: "0 5px",
+								"font-size": "14px",
 							},
 						});
 						const pack = [attrsKey, attrsValue];
@@ -112,7 +123,7 @@ class CONTEXT_ACTION extends DOM_FACTORY {
 							wrap.appendChild(ele);
 						});
 						attrsWrap.appendChild(wrap);
-						attrsValue.addEventListener("change", (e) => {
+						attrsValue.addEventListener("input", (e) => {
 							dom.style[attr] = attrsValue.value;
 						});
 					}
