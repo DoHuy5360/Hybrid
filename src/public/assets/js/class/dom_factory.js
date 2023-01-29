@@ -40,9 +40,15 @@ class DOM_FACTORY extends INTERACTIVE {
 	create_button() {
 		this.identify = this.create({
 			type: "button",
-			text: "Punch me!",
-			width: "100%",
-			"word-break": "break-word",
+			text: "Button",
+			css: {
+				width: "fit-content",
+				background: "#eaeaea",
+				"word-break": "break-word",
+				padding: "5px 10px",
+				cursor: "grab",
+				"font-size": "14px",
+			},
 			attribute: { type: "button" },
 		});
 		this.can_move(true);
@@ -61,11 +67,15 @@ class DOM_FACTORY extends INTERACTIVE {
 		this.identify = this.create({
 			type: "input",
 			css: {
-				width: "100%",
-				height: "100%",
-				resize: "unset",
+				outline: "unset",
+				border: "1px solid #eaeaea",
+				padding: "2px 4px",
+				width: "fit-content",
+				height: "fit-content",
 			},
-			attribute: {},
+			attribute: {
+				spellcheck: "false",
+			},
 		});
 		this.can_move(true);
 		this.control((on) => {
@@ -80,7 +90,19 @@ class DOM_FACTORY extends INTERACTIVE {
 		return this.identify;
 	}
 	create_textarea() {
-		this.identify = this.create({ type: "textarea", css: { width: "100%", height: "100%", resize: "unset" }, attribute: {} });
+		this.identify = this.create({
+			type: "textarea",
+			css: {
+				outline: "unset",
+				border: "1px solid #eaeaea",
+				padding: "2px 4px",
+				width: "fit-content",
+				height: "fit-content",
+			},
+			attribute: {
+				spellcheck: "false",
+			},
+		});
 		this.can_move(true);
 		this.control((on) => {
 			on.dragstart((thisArea) => {
@@ -89,6 +111,32 @@ class DOM_FACTORY extends INTERACTIVE {
 			on.contextmenu((thisArea) => {
 				contextLeft.set_context_for(thisArea, ["_config"]);
 				contextHead.set_context_for(thisArea, ["_delete"]);
+			});
+		});
+		return this.identify;
+	}
+	create_image() {
+		this.identify = this.create({
+			type: "img",
+			css: {
+				// outline: "unset",
+				// border: "1px solid #eaeaea",
+				// padding: "2px 4px",
+				width: "100px",
+				height: "100px",
+			},
+			attribute: {
+				src: "/image_placeholder.png",
+			},
+		});
+		this.can_move(true);
+		this.control((on) => {
+			on.dragstart((thisInp) => {
+				setTemporary(thisInp);
+			});
+			on.contextmenu((thisInp) => {
+				contextLeft.set_context_for(thisInp, ["_config"]);
+				contextHead.set_context_for(thisInp, ["_delete"]);
 			});
 		});
 		return this.identify;

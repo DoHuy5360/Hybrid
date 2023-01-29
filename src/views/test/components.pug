@@ -29,12 +29,14 @@ block content
                 .wrap-left-contain-tray.drop-field
         .wrap-right 
             .wrap-right-tray
+                .drag-obj(disable='true', data-components="img") image
                 .drag-obj(disable='true', data-components="input") input
                 .drag-obj(disable='true', data-components="button") button
                 .drag-obj(disable='true', data-components="textarea") textarea
                 .drag-obj(disable='true', data-components="horizontal_socket") Horizontal Socket
                 .drag-obj(disable='true', data-components="vertical_socket") Vertical Socket
                 .drag-obj(disable='true', data-components="slot") Slot
+                .drag-obj(disable='true', data-components="header") header
 
 block script
     script(type="module" src="../assets/js/test/components.js") 

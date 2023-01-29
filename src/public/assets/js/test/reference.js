@@ -28,6 +28,10 @@ function convertCode(data) {
 			const textareaBank = new DOM_FACTORY();
 			return textareaBank.create_textarea();
 		},
+		img: () => {
+			const imgBank = new DOM_FACTORY();
+			return imgBank.create_image();
+		},
 		horizontal_socket: () => {
 			const newTray = new COMPONENTS();
 			return newTray.create_socket(2, { "flex-direction": "row" });
@@ -39,6 +43,10 @@ function convertCode(data) {
 		slot: () => {
 			const newSlot = new COMPONENTS();
 			return newSlot.create_slot();
+		},
+		header: () => {
+			const newHeader = new COMPONENTS();
+			return newHeader;
 		},
 	};
 

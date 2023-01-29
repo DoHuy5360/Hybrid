@@ -35,6 +35,10 @@ app.get("/components/:branch", (req, res) => {
 		res.render("errors/404");
 	}
 });
+app.get("/cake/:code", (req, res) => {
+	const code = req.params.code;
+	res.render(`test/components/${code}`);
+});
 app.get("*", (req, res) => {
 	res.render("errors/404");
 });

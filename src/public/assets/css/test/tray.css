@@ -1,0 +1,6 @@
+#trayComponents:has(#options:checked) {
+	height: 250px;
+}
+.dragoverTrigger {
+	background-color: lightgreen;
+}
