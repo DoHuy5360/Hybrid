@@ -4,22 +4,29 @@ html(lang="en")
         meta(charset="UTF-8")
         meta(http-equiv="X-UA-Compatible", content="IE=edge")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
-        link(rel="stylesheet", href="../assets/css/test/components/fork.css")
         link(rel="stylesheet", href="../assets/css/test/tray.css")
         script(type="module",src="../assets/js/test/tray.js") 
         //- todo: plugin
         link(rel="stylesheet", href="../assets/css/test/components/header1.css")
+        link(rel="stylesheet", href="../assets/css/test/components/fork/width.css")
+        link(rel="stylesheet", href="../assets/css/test/components/fork/height.css")
+        link(rel="stylesheet", href="../assets/css/test/components/fork/padding.css")
+        link(rel="stylesheet", href="../assets/css/test/components/fork/margin.css")
+        link(rel="stylesheet", href="../assets/css/test/components/fork/tblr.css")
+        link(rel="stylesheet", href="../assets/css/test/components/fork/gap.css")
+        link(rel="stylesheet", href="../assets/css/test/components/fork/background.css")
+        link(rel="stylesheet", href="../assets/css/test/components/fork/utilities.css")
+        <script src="https://kit.fontawesome.com/22e1005e84.js" crossorigin="anonymous"></script>
         title Tray
     body 
         div.h-100vh.flex-col
-            div.h-100vh.bg-custom.flex-col#tray(style="--bg: #f8f8f8;")
-            div.h-custom.bg-custom.sticky-b0.flex-row.between.transition300ms#trayComponents(style="--h: 28px; --bg: #eaeaea;")
+            div.h-100vh.bg-f8f8f8.flex-col#tray
+            div.h-28px.bg-eaeaea.sticky.b-0px.flex-row.between.transition-300ms.over-hidden#trayComponents
                 div.flex-col.w-100pc
                     div.flex-row
-                        div.p4.no-select.pointer Header
-                        div.p4.no-select.pointer Body
-                        div.p4.no-select.pointer Footer
-                    div.flex-row.h-100pc#components_tray
-                        div.p4.grab.cake.bg-custom(style="--bg: lightblue;", data-code="header1") example
-                label.pointer(for="options") Options
+                        div.p-4px.no-select.pointer Header
+                        div.p-4px.no-select.pointer Body
+                        div.p-4px.no-select.pointer Footer
+                    div.flex-col.h-100pc#components_tray
+                label.pointer.no-select(for="options") Options
                     input#options(type="checkbox", hidden="true", checked="true") 

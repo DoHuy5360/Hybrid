@@ -12,11 +12,10 @@ tray_entity.control((on) => {
 	on.dragleave(() => {
 		tray_entity.remove_class("dragoverTrigger");
 	});
-	on.drop(async (thisTray) => {
+	on.drop((thisTray) => {
 		const cake_dropped = getTemporary();
-		const code = cake_dropped.getAttribute("data-code");
-		const html = await fetch(`http://localhost:4000/cake/${code}`).then((res) => res.text());
-		thisTray.insertAdjacentHTML("beforeend", html);
+		thisTray.appendChild(cake_dropped);
+
 		tray_entity.remove_class("dragoverTrigger");
 	});
 });
@@ -36,16 +35,28 @@ components_tray_entity.control((on) => {
 		components_tray_entity.remove_class("dragoverTrigger");
 	});
 });
-const cakes = document.querySelectorAll(".cake");
-cakes.forEach((cake) => {
-	const cakeEntity = new INTERACTIVE(cake);
-	cakeEntity.can_move(true);
-	cakeEntity.control((on) => {
-		on.dragstart((thisCake, e) => {
-			setTemporary(thisCake);
-		});
-		on.dragend((thisCake, e) => {
-			console.log(2);
+async function getComponents() {
+	const codes = ["header1", "youtube_header"];
+	for (let idx = 0; idx < codes.length; idx++) {
+		const code = codes[idx];
+		const response = await fetch(`http://localhost:4000/cake/${code}`).then((res) => res);
+		if (response.ok) {
+			components_tray.insertAdjacentHTML("beforeend", await response.text());
+		}
+	}
+	setMicrowave();
+}
+getComponents();
+function setMicrowave() {
+	const cakes = document.querySelectorAll(".cake");
+	cakes.forEach((cake) => {
+		const cakeEntity = new INTERACTIVE(cake);
+		cakeEntity.can_move(true);
+		cakeEntity.control((on) => {
+			on.dragstart((thisCake, e) => {
+				setTemporary(thisCake);
+			});
+			on.dragend((thisCake, e) => {});
 		});
 	});
-});
+}
