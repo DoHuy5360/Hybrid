@@ -1,3 +1,6 @@
+.bg-trans {
+	background-color: transparent;
+}
 .bg-000000 {
 	background-color: #000000;
 }
@@ -1977,4 +1980,10 @@
 }
 .bg-eaeaea {
 	background-color: #eaeaea;
+}
+.bg-f0f2f5 {
+	background-color: #f0f2f5;
+}
+.bg-e4e6eb {
+	background-color: #e4e6eb;
 }

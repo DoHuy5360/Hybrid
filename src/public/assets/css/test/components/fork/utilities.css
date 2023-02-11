@@ -3,6 +3,7 @@
 	padding: 0;
 	box-sizing: border-box;
 	/* outline: 1px solid red; */
+	font-family: Arial, Helvetica, sans-serif;
 }
 
 .pointer {
@@ -44,11 +45,23 @@
 .grid.no-display {
 	display: none;
 }
+.no-display {
+	display: none;
+}
 .place-center {
 	place-items: center;
 }
 .over-hidden {
 	overflow: hidden;
+}
+.over-scroll {
+	overflow: scroll;
+}
+.over-scroll-x {
+	overflow-x: scroll;
+}
+.over-scroll-y {
+	overflow-y: scroll;
 }
 .opacity-1 {
 	opacity: 1;

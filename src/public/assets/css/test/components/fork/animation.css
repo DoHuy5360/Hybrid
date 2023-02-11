@@ -1,0 +1,12 @@
+@keyframes move_up {
+	0% {
+		transform: translateY(20px);
+	}
+	100% {
+		transform: translateY(0);
+	}
+}
+.move-up {
+	animation: move_up 500ms ease;
+	animation-delay: var(--delay);
+}

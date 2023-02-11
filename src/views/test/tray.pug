@@ -15,6 +15,7 @@ html(lang="en")
         link(rel="stylesheet", href="../assets/css/test/components/fork/tblr.css")
         link(rel="stylesheet", href="../assets/css/test/components/fork/gap.css")
         link(rel="stylesheet", href="../assets/css/test/components/fork/background.css")
+        link(rel="stylesheet", href="../assets/css/test/components/fork/animation.css")
         link(rel="stylesheet", href="../assets/css/test/components/fork/utilities.css")
         <script src="https://kit.fontawesome.com/22e1005e84.js" crossorigin="anonymous"></script>
         title Tray
@@ -24,9 +25,13 @@ html(lang="en")
             div.h-28px.bg-eaeaea.sticky.b-0px.flex-row.between.transition-300ms.over-hidden#trayComponents
                 div.flex-col.w-100pc
                     div.flex-row
-                        div.p-4px.no-select.pointer Header
-                        div.p-4px.no-select.pointer Body
-                        div.p-4px.no-select.pointer Footer
-                    div.flex-col.h-100pc#components_tray
-                label.pointer.no-select(for="options") Options
+                        .p-4px.no-select.pointer.typeSelect(data-select="header") Header
+                        .p-4px.no-select.pointer.typeSelect(data-select="body") Body
+                        .p-4px.no-select.pointer.typeSelect(data-select="footer") Footer
+                    div.h-100pc.bg-000000
+                        .flex-col.over-scroll-y.g-1px.components_tray(data-field="body")
+                            .h-100px.bg-eaeaea.w-100pc
+                        .flex-col.over-scroll-y.g-1px.no-display.components_tray(data-field="footer")
+                            .h-100px.bg-f8f8f8.w-100pc
+                label.p-4px.pointer.no-select(for="options") Options
                     input#options(type="checkbox", hidden="true", checked="true") 
