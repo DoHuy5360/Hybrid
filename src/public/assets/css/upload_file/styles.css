@@ -37,12 +37,19 @@
 	background-color: #eaeaea;
 	cursor: pointer;
 	color: black;
-	padding-left: 10px;
+	display: flex;
+	gap: 5px;
+	align-items: center;
+	padding: 5px 0 5px 10px;
 }
 .leaf {
 	padding-left: 10px;
 	color: lightcoral;
 	background-color: #f8f8f8;
+	display: flex;
+	gap: 5px;
+	align-items: center;
+	padding: 5px 0 5px 10px;
 }
 .branch {
 }

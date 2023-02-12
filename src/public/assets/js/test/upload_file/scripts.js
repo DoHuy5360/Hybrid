@@ -22,16 +22,22 @@ const list_file = [
 const root = document.querySelector(".root");
 list_folder.forEach((folder) => {
 	const branch = createDom({ name: "li", className: "branch" });
-	const tree = createDom({ name: "div", className: "tree", text: folder.name });
+	const tree = createDom({ name: "div", className: "tree" });
+	tree.insertAdjacentHTML("afterbegin", '<i class="fa-solid fa-folder"></i>');
+	// <i class="fa-regular fa-folder-open"></i>
+	const name = createDom({ name: "div", text: folder.name });
+	tree.appendChild(name);
 	const branch_view = createDom({ name: "ul", className: "branch-view", _id: folder._id });
-
 	branch.appendChild(tree);
 	branch.appendChild(branch_view);
 	const tree_body = document.querySelector(`[data-id="${folder._belong}"]`);
 	tree_body.appendChild(branch);
 });
 list_file.forEach((file) => {
-	const leaf = createDom({ name: "li", className: "leaf", text: file.name });
+	const leaf = createDom({ name: "li", className: "leaf" });
+	const name = createDom({ name: "div", text: file.name });
+	leaf.appendChild(name);
+	leaf.insertAdjacentHTML("afterbegin", '<i class="fa-solid fa-file"></i>');
 	const tree_body = document.querySelector(`[data-id="${file._belong}"]`);
 	tree_body.appendChild(leaf);
 });
