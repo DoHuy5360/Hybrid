@@ -30,7 +30,12 @@ app.get("/components/:branch", (req, res) => {
 	const validFileNameList = fs.readdirSync(testPath).map((file) => file.split(".")[0]);
 	const branch = req.params.branch;
 	if (validFileNameList.includes(branch)) {
-		res.render(`test/components/${branch}`);
+		res.render(`test/components/${branch}`, {
+			shed: 1,
+			grow: function (branchs) {
+				return;
+			},
+		});
 	} else {
 		res.render("errors/404");
 	}
