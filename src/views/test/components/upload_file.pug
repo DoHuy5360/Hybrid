@@ -1,0 +1,57 @@
+extends ../../template/test.pug
+
+block link
+    link(rel="stylesheet", href="../assets/css/upload_file/styles.css")
+block script 
+    script(src="../assets/js/test/upload_file/scripts.js") 
+block title 
+    title Upload file
+block content
+    .wrap  
+        .content-wrap
+        .sidebar-wrap 
+            .sidebar-actions
+                button.add-file(type="button") + File
+                button.add-folder(type="button") + Folder
+            .sidebar
+                ul.root(data-id="-1")
+                    //- li.branch
+                    //-     div.tree name 0
+                    //-     ul.branch-view
+                    //-         li.branch 
+                    //-             div.tree name 1
+                    //-             ul.branch-view
+                    //-                 li.branch 1
+                    //-                 li.branch
+                    //-                     div.tree name 1a
+                    //-                     ul.branch-view
+                    //-                         li.branch 1
+                    //-                         li.branch 2
+                    //-         li.branch 
+                    //-             div.tree name 2
+                    //-             ul.branch-view
+                    //-                 li.branch 6
+                    //-         li.branch 
+                    //-             div.tree name 3
+                    //-             ul.branch-view
+                    //-                 li.branch 7
+                    //- li.branch
+                        div.tree name 0
+                        ul.branch-view
+                            li.branch 
+                                div.tree name 1
+                                ul.branch-view
+                                    li.branch 1
+                                    li.branch
+                                        div.tree name 1a
+                                        ul.branch-view
+                                            li.branch 1
+                                            li.branch 2
+                            li.branch 
+                                div.tree name 2
+                                ul.branch-view
+                                    li.branch 6
+                            li.branch 
+                                div.tree name 3
+                                ul.branch-view
+                                    li.branch 7
