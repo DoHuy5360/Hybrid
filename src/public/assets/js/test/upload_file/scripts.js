@@ -1,77 +1,50 @@
+import FOLDER, { tree_selected } from "../../class/folder.js";
+import FILE from "../../class/file.js";
+import DOM_FACTORY from "../../class/dom_factory.js";
 const list_folder = [
-	{ _id: 0, _belong: -1, name: "folder name 0" },
-	{ _id: 1, _belong: 0, name: "folder name 1" },
-	{ _id: 2, _belong: 0, name: "folder name 2" },
-	{ _id: 3, _belong: 0, name: "folder name 3" },
-	{ _id: 4, _belong: 2, name: "folder name 4" },
-	{ _id: 5, _belong: 2, name: "folder name 5" },
-	{ _id: 6, _belong: 3, name: "folder name 6" },
-	{ _id: 7, _belong: 4, name: "folder name 7" },
+	{ _id: 0, _belong: -1, name: "Hybrid" },
+	{ _id: 1, _belong: 0, name: "node_modules" },
+	{ _id: 2, _belong: 0, name: "src" },
+	{ _id: 3, _belong: 2, name: "views" },
+	{ _id: 4, _belong: 2, name: "public" },
+	{ _id: 5, _belong: 2, name: "test" },
+	{ _id: 7, _belong: 4, name: "assets" },
+	{ _id: 6, _belong: 7, name: "js" },
 ];
 const list_file = [
-	{ _id: 0, _belong: 0, name: "file name 0" },
-	{ _id: 1, _belong: 0, name: "file name 1" },
-	{ _id: 2, _belong: 0, name: "file name 2" },
-	{ _id: 3, _belong: 0, name: "file name 3" },
-	{ _id: 4, _belong: 2, name: "file name 4" },
-	{ _id: 5, _belong: 2, name: "file name 5" },
-	{ _id: 6, _belong: 3, name: "file name 6" },
-	{ _id: 7, _belong: 4, name: "file name 7" },
+	{ _id: 0, _belong: 0, name: ".gitignore" },
+	{ _id: 1, _belong: 0, name: ".env" },
+	{ _id: 2, _belong: 0, name: "index.js" },
+	{ _id: 3, _belong: 0, name: "packet.json" },
+	{ _id: 4, _belong: 3, name: "home.pug" },
+	{ _id: 5, _belong: 3, name: "404.pug" },
+	{ _id: 6, _belong: 4, name: "img.png" },
+	{ _id: 7, _belong: 0, name: "README.md" },
 ];
 
-const root = document.querySelector(".root");
+// const root = document.querySelector(".root");
 list_folder.forEach((folder) => {
-	const branch = createDom({ name: "li", className: "branch" });
-	const tree = createDom({ name: "div", className: "tree" });
-	tree.insertAdjacentHTML("afterbegin", '<i class="fa-solid fa-folder"></i>');
-	// <i class="fa-regular fa-folder-open"></i>
-	const name = createDom({ name: "div", text: folder.name });
-	tree.appendChild(name);
-	const branch_view = createDom({ name: "ul", className: "branch-view", _id: folder._id });
-	branch.appendChild(tree);
-	branch.appendChild(branch_view);
+	const folder_obj = new FOLDER();
+	const folder_entity = folder_obj.create_folder(folder);
 	const tree_body = document.querySelector(`[data-id="${folder._belong}"]`);
-	tree_body.appendChild(branch);
+	tree_body.appendChild(folder_entity);
 });
 list_file.forEach((file) => {
-	const leaf = createDom({ name: "li", className: "leaf" });
-	const name = createDom({ name: "div", text: file.name });
-	leaf.appendChild(name);
-	leaf.insertAdjacentHTML("afterbegin", '<i class="fa-solid fa-file"></i>');
+	const file_obj = new FILE();
+	const file_entity = file_obj.create_file(file);
 	const tree_body = document.querySelector(`[data-id="${file._belong}"]`);
-	tree_body.appendChild(leaf);
+	tree_body.appendChild(file_entity);
 });
-
-function createDom({ name, className = "", text = "", _id = "" }) {
-	const de = document.createElement(name);
-	de.setAttribute("class", className);
-	de.setAttribute("data-id", _id);
-	de.textContent = text;
-	return de;
-}
-
-let tree_selected;
-
-const trees = document.querySelectorAll(".tree");
-trees.forEach((tree) => {
-	assignSelectFolder(tree);
-});
-function assignSelectFolder(tree) {
-	tree.addEventListener("click", (e) => {
-		const parent_tree = tree.parentNode;
-		parent_tree.querySelector(".branch-view").classList.toggle("visible");
-		if (tree_selected) {
-			tree_selected.classList.remove("selected");
-		}
-		tree_selected = tree;
-		tree_selected.classList.add("selected");
-	});
+function setIconState() {
+	tree_selected.firstChild.remove();
+	tree_selected.prepend(dom_obj.convert_to_dom('<i class="fa-regular fa-folder-open"></i>'));
 }
 let allow_to_add = true;
 const add_file = document.querySelector(".add-file");
 add_file.addEventListener("click", (e) => {
 	if (tree_selected && allow_to_add) {
 		allow_to_add = false;
+		setIconState();
 		const parent_tree = tree_selected.parentNode;
 		const container = parent_tree.querySelector(".branch-view");
 		container.classList.add("visible");
@@ -85,9 +58,12 @@ add_file.addEventListener("click", (e) => {
 		input.focus();
 	}
 });
+const dom_obj = new DOM_FACTORY();
 const add_folder = document.querySelector(".add-folder");
 add_folder.addEventListener("click", (e) => {
 	if (tree_selected && allow_to_add) {
+		setIconState();
+
 		allow_to_add = false;
 		const parent_tree = tree_selected.parentNode;
 		const container = parent_tree.querySelector(".branch-view");
@@ -122,8 +98,10 @@ function addNewWhenEnter(dom) {
 	dom.addEventListener("keypress", (e) => {
 		if (e.key === "Enter") {
 			isBlur = false;
-			const leaf = createDom({ name: "li", className: "leaf", text: dom.value });
-			dom.parentNode.appendChild(leaf);
+			const file_data = { _id: 999, _belong: 999, name: dom.value };
+			const file_obj = new FILE();
+			const file_entity = file_obj.create_file(file_data);
+			dom.parentNode.appendChild(file_entity);
 			try {
 				dom.remove();
 			} catch (err) {
@@ -136,15 +114,11 @@ function addNewWhenEnterFolder(dom) {
 	dom.addEventListener("keypress", (e) => {
 		if (e.key === "Enter") {
 			isBlur = false;
-			const branch = createDom({ name: "li", className: "branch" });
-			const tree = createDom({ name: "div", className: "tree", text: dom.value });
-			const branch_view = createDom({ name: "ul", className: "branch-view" });
+			const folder_data = { _id: 999, _belong: 999, name: dom.value };
+			const folder_obj = new FOLDER();
+			const folder_entity = folder_obj.create_folder(folder_data);
 
-			branch.appendChild(tree);
-			assignSelectFolder(tree);
-			branch.appendChild(branch_view);
-
-			dom.parentNode.appendChild(branch);
+			dom.parentNode.appendChild(folder_entity);
 			try {
 				dom.remove();
 			} catch (err) {

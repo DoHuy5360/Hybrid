@@ -10,14 +10,12 @@
 	height: 100vh;
 }
 .content-wrap {
-	flex: 4;
-	/* background-color: #282a36; */
-	background-color: #282a3699;
+	flex: 5;
+	background-color: #282a36;
 }
 .sidebar-wrap {
 	flex: 1;
-	/* background-color: #21222c; */
-	background-color: #21222c99;
+	background-color: #21222c;
 	display: flex;
 	flex-direction: column;
 	user-select: none;
@@ -26,6 +24,7 @@
 }
 .root {
 	list-style-type: none;
+	margin: 0;
 	padding: 0;
 }
 .branch-view {
@@ -34,22 +33,26 @@
 	padding-left: 20px;
 }
 .tree {
-	background-color: #eaeaea;
-	cursor: pointer;
-	color: black;
-	display: flex;
-	gap: 5px;
-	align-items: center;
-	padding: 5px 0 5px 10px;
 }
 .leaf {
 	padding-left: 10px;
 	color: lightcoral;
-	background-color: #f8f8f8;
+}
+.tree,
+.leaf {
+	color: #f5f5f5;
+	font-size: 0.8rem;
 	display: flex;
 	gap: 5px;
 	align-items: center;
 	padding: 5px 0 5px 10px;
+	transition: 100ms ease-in-out;
+	cursor: pointer;
+	margin: 1px 0;
+}
+.tree:hover,
+.leaf:hover {
+	background-color: #f5f5f553;
 }
 .branch {
 }
@@ -57,13 +60,27 @@
 	display: block;
 }
 .selected {
-	outline: 2px solid #ff0000c7;
+	outline: 1px solid #f5f5f5;
 }
 .sidebar-actions {
 	display: flex;
+	justify-content: space-between;
+	background-color: #282a36;
+	padding: 5px;
+}
+.workspace-name {
+	font-size: 0.8rem;
+	color: #f5f5f5;
+	font-weight: bold;
+}
+.actions {
+	display: flex;
+	align-items: baseline;
+	gap: 10px;
 }
 .add-file,
 .add-folder {
-	padding: 5px 10px;
+	font-size: 0.8rem;
+	color: #f5f5f5;
 	cursor: pointer;
 }

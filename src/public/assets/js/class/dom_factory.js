@@ -19,6 +19,11 @@ class DOM_FACTORY extends INTERACTIVE {
 		}
 		return dom;
 	}
+	convert_to_dom(html) {
+		const wrap = document.createElement("div");
+		wrap.insertAdjacentHTML("beforeend", html);
+		return wrap.firstChild;
+	}
 	create_option(options = {}, { selected = 0 }) {
 		const select = this.create({ type: "select", css: {} });
 		Object.keys(options).forEach((opt, idx) => {
