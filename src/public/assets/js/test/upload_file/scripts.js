@@ -39,23 +39,44 @@ function setIconState() {
 	tree_selected.firstChild.remove();
 	tree_selected.prepend(dom_obj.convert_to_dom('<i class="fa-regular fa-folder-open"></i>'));
 }
+let bud_queue;
+function budding_crafting({ setEnterEvent, icon, thisIsFolder }) {
+	// display branch view
+	const parent_tree = tree_selected.parentNode;
+	const container = parent_tree.querySelector(".branch-view");
+	container.classList.add("visible");
+	// create new obj input
+	const li = document.createElement("li");
+	li.setAttribute("class", "branch");
+	const shoot_wrapper = document.createElement("div");
+	shoot_wrapper.setAttribute("class", "shoot-wrapper");
+	shoot_wrapper.insertAdjacentHTML("afterbegin", icon);
+	const input = document.createElement("input");
+	input.setAttribute("class", "shoot");
+	setEnterEvent(input);
+	destroyWhenBlur(input);
+	shoot_wrapper.appendChild(input);
+	li.appendChild(shoot_wrapper);
+	if (bud_queue) {
+		bud_queue.remove();
+		bud_queue = li;
+	} else {
+		bud_queue = li;
+	}
+	if (thisIsFolder) {
+		container.prepend(bud_queue);
+	} else {
+		container.appendChild(bud_queue);
+	}
+	input.focus();
+	// return li;
+}
 let allow_to_add = true;
 const add_file = document.querySelector(".add-file");
 add_file.addEventListener("click", (e) => {
 	if (tree_selected && allow_to_add) {
-		allow_to_add = false;
 		setIconState();
-		const parent_tree = tree_selected.parentNode;
-		const container = parent_tree.querySelector(".branch-view");
-		container.classList.add("visible");
-		const li = document.createElement("li");
-		const input = document.createElement("input");
-		addNewWhenEnter(input);
-		destroyWhenBlur(input);
-		li.setAttribute("class", "branch");
-		li.appendChild(input);
-		container.prepend(li);
-		input.focus();
+		budding_crafting({ setEnterEvent: enterFileEvent, icon: '<i class="fa-solid fa-file"></i>' });
 	}
 });
 const dom_obj = new DOM_FACTORY();
@@ -63,19 +84,7 @@ const add_folder = document.querySelector(".add-folder");
 add_folder.addEventListener("click", (e) => {
 	if (tree_selected && allow_to_add) {
 		setIconState();
-
-		allow_to_add = false;
-		const parent_tree = tree_selected.parentNode;
-		const container = parent_tree.querySelector(".branch-view");
-		container.classList.add("visible");
-		const li = document.createElement("li");
-		const input = document.createElement("input");
-		addNewWhenEnterFolder(input);
-		destroyWhenBlur(input);
-		li.setAttribute("class", "branch");
-		li.appendChild(input);
-		container.prepend(li);
-		input.focus();
+		budding_crafting({ setEnterEvent: enterFolderEvent, icon: '<i class="fa-solid fa-folder"></i>', thisIsFolder: true });
 	}
 });
 let isBlur = true;
@@ -94,33 +103,34 @@ function destroyWhenBlur(dom) {
 	});
 }
 
-function addNewWhenEnter(dom) {
+function enterFileEvent(dom) {
 	dom.addEventListener("keypress", (e) => {
 		if (e.key === "Enter") {
 			isBlur = false;
+			allow_to_add = true;
 			const file_data = { _id: 999, _belong: 999, name: dom.value };
 			const file_obj = new FILE();
 			const file_entity = file_obj.create_file(file_data);
-			dom.parentNode.appendChild(file_entity);
+			dom.parentNode.parentNode.appendChild(file_entity);
 			try {
-				dom.remove();
+				dom.parentNode.remove();
 			} catch (err) {
 				// console.log(err);
 			}
 		}
 	});
 }
-function addNewWhenEnterFolder(dom) {
+function enterFolderEvent(dom) {
 	dom.addEventListener("keypress", (e) => {
 		if (e.key === "Enter") {
 			isBlur = false;
+			allow_to_add = true;
 			const folder_data = { _id: 999, _belong: 999, name: dom.value };
 			const folder_obj = new FOLDER();
 			const folder_entity = folder_obj.create_folder(folder_data);
-
-			dom.parentNode.appendChild(folder_entity);
+			dom.parentNode.parentNode.appendChild(folder_entity);
 			try {
-				dom.remove();
+				dom.parentNode.remove();
 			} catch (err) {
 				// console.log(err);
 			}

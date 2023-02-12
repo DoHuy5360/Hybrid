@@ -11,7 +11,6 @@ class FOLDER extends DOM_FACTORY {
 	create_folder(folder) {
 		const branch = this.create({ type: "li", attribute: { class: "branch" } });
 		const tree = this.create({ type: "div", attribute: { class: "tree" } });
-		// tree.insertAdjacentHTML("afterbegin", `${this.folder_close_icon}${this.folder_open_icon}`);
 		tree.prepend(this.folder_close_icon);
 		const name = this.create({ type: "div", text: folder.name });
 		tree.appendChild(name);
@@ -29,7 +28,7 @@ class FOLDER extends DOM_FACTORY {
 				tree.prepend(this.folder_close_icon);
 			}
 			tree.classList.add("selected");
-			if (tree_selected !== undefined) {
+			if (tree_selected !== undefined && tree_selected !== tree) {
 				tree_selected.classList.remove("selected");
 			}
 			tree_selected = tree;
