@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
-
+import * as dotenv from "dotenv";
+dotenv.config();
 mongoose
-	.connect("mongodb+srv://hybrid:ilGyIKlEcu0kPnPW@cluster0.2wso698.mongodb.net/file_database?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true })
+	.connect(process.env.DB_URL, { useNewUrlParser: true, useUnifiedTopology: true })
 	.then(() => {
 		console.log("Connected to MongoDB Atlas Successfully!");
 	})
