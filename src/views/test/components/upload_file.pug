@@ -3,16 +3,33 @@ extends ../../template/test.pug
 block link
     link(rel="stylesheet", href="../assets/css/upload_file/styles.css")
 block script 
-    script(src="../assets/js/test/upload_file/scripts.js") 
+    script(type="module",src="../assets/js/test/upload_file/scripts.js") 
+    <script src="https://kit.fontawesome.com/22e1005e84.js" crossorigin="anonymous"></script>
 block title 
     title Upload file
 block content
     .wrap  
         .content-wrap
+            .wrap-de
+                .de(style="--cl:#B1E1CF;")
+                .de(style="--cl:#F3B6C2;")
+                .de(style="--cl:#FAE5B3;")
+                .de(style="--cl:#F5F5DC;")
+                .de(style="--cl:#D3D3D3;")
+                .de(style="--cl:#FFFDD0;")
+                .de(style="--cl:#FFEBCD;")
+                .de(style="--cl:#D8BFD8;")
+                .de(style="--cl:#8FBC8F;")
+                .de(style="--cl:#87CEFA;")
+            .laboratory
         .sidebar-wrap 
             .sidebar-actions
-                button.add-file(type="button") + File
-                button.add-folder(type="button") + Folder
+                .workspace-name World Tree
+                .actions
+                    div.add-file
+                        <i class="fa-solid fa-file-circle-plus"></i>
+                    div.add-folder
+                        <i class="fa-solid fa-folder-plus"></i>
             .sidebar
                 ul.root(data-id="-1")
                     //- li.branch
