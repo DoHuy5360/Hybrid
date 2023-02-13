@@ -1,6 +1,9 @@
 import DOM_FACTORY from "./dom_factory.js";
 
-export let tree_selected;
+export let tree_selected = {
+	node: undefined,
+	attrs: undefined,
+};
 
 class FOLDER extends DOM_FACTORY {
 	constructor() {
@@ -28,10 +31,11 @@ class FOLDER extends DOM_FACTORY {
 				tree.prepend(this.folder_close_icon);
 			}
 			tree.classList.add("selected");
-			if (tree_selected !== undefined && tree_selected !== tree) {
-				tree_selected.classList.remove("selected");
+			if (tree_selected.node !== undefined && tree_selected.node !== tree) {
+				tree_selected.node.classList.remove("selected");
 			}
-			tree_selected = tree;
+			tree_selected.node = tree;
+			tree_selected.attrs = folder;
 		});
 
 		return branch;

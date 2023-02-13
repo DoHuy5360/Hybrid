@@ -44,13 +44,13 @@ async function inspectLeaf(file) {
 	laboratory.innerHTML = echo;
 }
 function setIconState() {
-	tree_selected.firstChild.remove();
-	tree_selected.prepend(dom_obj.convert_to_dom('<i class="fa-regular fa-folder-open"></i>'));
+	tree_selected.node.firstChild.remove();
+	tree_selected.node.prepend(dom_obj.convert_to_dom('<i class="fa-regular fa-folder-open"></i>'));
 }
 let bud_queue;
 function budding_crafting({ setEnterEvent, icon, thisIsFolder }) {
 	// display branch view
-	const parent_tree = tree_selected.parentNode;
+	const parent_tree = tree_selected.node.parentNode;
 	const container = parent_tree.querySelector(".branch-view");
 	container.classList.add("visible");
 	// create new obj input
@@ -82,7 +82,7 @@ function budding_crafting({ setEnterEvent, icon, thisIsFolder }) {
 let allow_to_add = true;
 const add_file = document.querySelector(".add-file");
 add_file.addEventListener("click", (e) => {
-	if (tree_selected && allow_to_add) {
+	if (tree_selected.node && allow_to_add) {
 		setIconState();
 		budding_crafting({ setEnterEvent: enterFileEvent, icon: '<i class="fa-solid fa-file"></i>' });
 	}
@@ -90,7 +90,7 @@ add_file.addEventListener("click", (e) => {
 const dom_obj = new DOM_FACTORY();
 const add_folder = document.querySelector(".add-folder");
 add_folder.addEventListener("click", (e) => {
-	if (tree_selected && allow_to_add) {
+	if (tree_selected.node && allow_to_add) {
 		setIconState();
 		budding_crafting({ setEnterEvent: enterFolderEvent, icon: '<i class="fa-solid fa-folder"></i>', thisIsFolder: true });
 	}
@@ -124,11 +124,11 @@ function enterFileEvent(dom) {
 		if (e.key === "Enter") {
 			isBlur = false;
 			allow_to_add = true;
-			const file_data = { _id: 999, _belong: 999, name: dom.value };
+			const file_data = { _id: 999, _belong: tree_selected.attrs._id, name: dom.value };
 			const file_obj = new FILE();
 			const file_entity = file_obj.create_file(file_data);
 			dom.parentNode.parentNode.appendChild(file_entity);
-			storeNewFile({ _belong: "999", name: dom.value });
+			storeNewFile(file_data);
 			try {
 				dom.parentNode.remove();
 			} catch (err) {
@@ -142,11 +142,11 @@ function enterFolderEvent(dom) {
 		if (e.key === "Enter") {
 			isBlur = false;
 			allow_to_add = true;
-			const folder_data = { _id: 999, _belong: 999, name: dom.value };
+			const folder_data = { _id: 999, _belong: tree_selected.attrs._id, name: dom.value };
 			const folder_obj = new FOLDER();
 			const folder_entity = folder_obj.create_folder(folder_data);
 			dom.parentNode.parentNode.appendChild(folder_entity);
-			storeNewFile({ _belong: "999", name: dom.value });
+			storeNewFile(folder_data);
 			try {
 				dom.parentNode.remove();
 			} catch (err) {
