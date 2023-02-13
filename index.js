@@ -3,12 +3,14 @@ import { fileURLToPath } from "url";
 import { dirname } from "path";
 import path from "path";
 import fs from "fs";
+import { getFileContent, storeNewFile } from "./src/controllers/fileController.js";
 
 //*[local] D:\Javascript\web\Hybrid\index.js
 const __filename = fileURLToPath(import.meta.url);
 //*[local] D:\Javascript\web\Hybrid
 const __dirname = dirname(__filename);
 const app = express();
+app.use(express.json());
 app.use(express.static("src/public"));
 app.set("views", path.join(__dirname, "src/views"));
 app.set("view engine", "pug");
@@ -40,6 +42,8 @@ app.get("/components/:branch", (req, res) => {
 		res.render("errors/404");
 	}
 });
+app.get("/inspect/:id", getFileContent);
+app.post("/file", storeNewFile);
 app.get("/cake/:code", (req, res) => {
 	const code = req.params.code;
 	res.render(`test/components/${code}`);

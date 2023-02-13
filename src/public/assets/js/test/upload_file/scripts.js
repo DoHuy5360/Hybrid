@@ -32,9 +32,17 @@ list_folder.forEach((folder) => {
 list_file.forEach((file) => {
 	const file_obj = new FILE();
 	const file_entity = file_obj.create_file(file);
+	file_entity.addEventListener("click", (e) => {
+		inspectLeaf(file._id);
+	});
 	const tree_body = document.querySelector(`[data-id="${file._belong}"]`);
 	tree_body.appendChild(file_entity);
 });
+const laboratory = document.querySelector(".laboratory");
+async function inspectLeaf(file) {
+	const echo = await fetch(`http://localhost:4000/inspect/${file}`).then((res) => res.text());
+	laboratory.innerHTML = echo;
+}
 function setIconState() {
 	tree_selected.firstChild.remove();
 	tree_selected.prepend(dom_obj.convert_to_dom('<i class="fa-regular fa-folder-open"></i>'));
@@ -102,7 +110,15 @@ function destroyWhenBlur(dom) {
 		}
 	});
 }
-
+async function storeNewFile(file_data) {
+	await fetch(`http://localhost:4000/file`, {
+		method: "POST",
+		body: JSON.stringify(file_data),
+		headers: {
+			"Content-Type": "application/json",
+		},
+	});
+}
 function enterFileEvent(dom) {
 	dom.addEventListener("keypress", (e) => {
 		if (e.key === "Enter") {
@@ -112,6 +128,7 @@ function enterFileEvent(dom) {
 			const file_obj = new FILE();
 			const file_entity = file_obj.create_file(file_data);
 			dom.parentNode.parentNode.appendChild(file_entity);
+			storeNewFile({ _belong: "999", name: dom.value });
 			try {
 				dom.parentNode.remove();
 			} catch (err) {
@@ -129,6 +146,7 @@ function enterFolderEvent(dom) {
 			const folder_obj = new FOLDER();
 			const folder_entity = folder_obj.create_folder(folder_data);
 			dom.parentNode.parentNode.appendChild(folder_entity);
+			storeNewFile({ _belong: "999", name: dom.value });
 			try {
 				dom.parentNode.remove();
 			} catch (err) {
