@@ -1,6 +1,9 @@
 class CONTROLLER {
 	constructor() {}
-	async get() {}
+	async get(endpoint) {
+		const response = await fetch(endpoint);
+		return response;
+	}
 	async post(endpoint, params) {
 		const response = await fetch(endpoint, {
 			method: "POST",

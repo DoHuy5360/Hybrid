@@ -23,7 +23,8 @@ const list_file = [
 	{ _id: 6, _belong: 4, name: "img.png" },
 	{ _id: 7, _belong: 0, name: "README.md" },
 ];
-
+const file_controller = new FILE_CONTROLLER();
+const folder_controller = new FOLDER_CONTROLLER();
 // const root = document.querySelector(".root");
 list_folder.forEach((folder) => {
 	const folder_obj = new FOLDER();
@@ -42,26 +43,28 @@ list_file.forEach((file) => {
 });
 const laboratory = document.querySelector(".laboratory");
 async function inspectLeaf() {
-	const echo_folder = await fetch("http://localhost:4000/folder").then((res) => res.json());
-	echo_folder.folders_collection.forEach((folder) => {
-		const folder_obj = new FOLDER();
-		const folder_entity = folder_obj.create_folder(folder);
-		const tree_body = document.querySelector(`[data-id="${folder._belong}"]`);
-		tree_body.appendChild(folder_entity);
+	folder_controller.display((res) => {
+		res.folders_collection.forEach((folder) => {
+			const folder_obj = new FOLDER();
+			const folder_entity = folder_obj.create_folder(folder);
+			const tree_body = document.querySelector(`[data-id="${folder._belong}"]`);
+			tree_body.appendChild(folder_entity);
+		});
 	});
-	const echo = await fetch("http://localhost:4000/file").then((res) => res.json());
-	echo.files_collection.forEach((file) => {
-		const file_obj = new FILE();
-		const file_entity = file_obj.create_file(file);
-		// file_entity.addEventListener("click", (e) => {
-		// 	inspectLeaf(file._id);
-		// });
-		const tree_body = document.querySelector(`[data-id="${file._belong}"]`);
-		if (tree_body) {
-			tree_body.appendChild(file_entity);
-		} else {
-			console.warn("_belong attribute not found:", file._belong, "| File name:", file.name);
-		}
+	file_controller.display((res) => {
+		res.files_collection.forEach((file) => {
+			const file_obj = new FILE();
+			const file_entity = file_obj.create_file(file);
+			// file_entity.addEventListener("click", (e) => {
+			// 	inspectLeaf(file._id);
+			// });
+			const tree_body = document.querySelector(`[data-id="${file._belong}"]`);
+			if (tree_body) {
+				tree_body.appendChild(file_entity);
+			} else {
+				console.warn("_belong attribute not found:", file._belong, "| File name:", file.name);
+			}
+		});
 	});
 }
 inspectLeaf();
@@ -76,30 +79,25 @@ function budding_crafting({ setEnterEvent, icon, thisIsFolder }) {
 	const container = parent_tree.querySelector(".branch-view");
 	container.classList.add("visible");
 	// create new obj input
-	const li = document.createElement("li");
-	li.setAttribute("class", "branch");
-	const shoot_wrapper = document.createElement("div");
-	shoot_wrapper.setAttribute("class", "shoot-wrapper");
-	shoot_wrapper.insertAdjacentHTML("afterbegin", icon);
-	const input = document.createElement("input");
-	input.setAttribute("class", "shoot");
+	const dom_factory = new DOM_FACTORY();
+	const wrap_input = dom_factory.create({ type: "li", attribute: { class: "branch" } });
+	const shoot_wrapper = dom_factory.create({ type: "div", attribute: { class: "shoot-wrapper" } });
+	const input = dom_factory.create({ type: "input", attribute: { class: "shoot" } });
 	setEnterEvent(input);
 	destroyWhenBlur(input);
+	shoot_wrapper.insertAdjacentHTML("afterbegin", icon);
 	shoot_wrapper.appendChild(input);
-	li.appendChild(shoot_wrapper);
+	wrap_input.appendChild(shoot_wrapper);
 	if (bud_queue) {
 		bud_queue.remove();
-		bud_queue = li;
-	} else {
-		bud_queue = li;
 	}
+	bud_queue = wrap_input;
 	if (thisIsFolder) {
 		container.prepend(bud_queue);
 	} else {
 		container.appendChild(bud_queue);
 	}
 	input.focus();
-	// return li;
 }
 let allow_to_add = true;
 const add_file = document.querySelector(".add-file");
@@ -132,7 +130,6 @@ function destroyWhenBlur(dom) {
 		}
 	});
 }
-const file_controller = new FILE_CONTROLLER();
 function enterFileEvent(input) {
 	input.addEventListener("keypress", (e) => {
 		if (e.key === "Enter" && input.value) {
@@ -155,7 +152,6 @@ function enterFileEvent(input) {
 		}
 	});
 }
-const folder_controller = new FOLDER_CONTROLLER();
 function enterFolderEvent(input) {
 	input.addEventListener("keypress", async (e) => {
 		if (e.key === "Enter" && input.value) {
