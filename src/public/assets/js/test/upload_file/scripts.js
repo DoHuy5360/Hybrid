@@ -1,6 +1,8 @@
 import FOLDER, { tree_selected } from "../../class/folder.js";
 import FILE from "../../class/file.js";
 import DOM_FACTORY from "../../class/dom_factory.js";
+import FOLDER_CONTROLLER from "../../controllers/folderController.js";
+import FILE_CONTROLLER from "../../controllers/fileController.js";
 const list_folder = [
 	{ _id: 0, _belong: -1, name: "Hybrid" },
 	{ _id: 1, _belong: 0, name: "node_modules" },
@@ -32,17 +34,37 @@ list_folder.forEach((folder) => {
 list_file.forEach((file) => {
 	const file_obj = new FILE();
 	const file_entity = file_obj.create_file(file);
-	file_entity.addEventListener("click", (e) => {
-		inspectLeaf(file._id);
-	});
+	// file_entity.addEventListener("click", (e) => {
+	// 	inspectLeaf(file._id);
+	// });
 	const tree_body = document.querySelector(`[data-id="${file._belong}"]`);
 	tree_body.appendChild(file_entity);
 });
 const laboratory = document.querySelector(".laboratory");
-async function inspectLeaf(file) {
-	const echo = await fetch(`http://localhost:4000/inspect/${file}`).then((res) => res.text());
-	laboratory.innerHTML = echo;
+async function inspectLeaf() {
+	const echo_folder = await fetch("http://localhost:4000/folder").then((res) => res.json());
+	echo_folder.folders_collection.forEach((folder) => {
+		const folder_obj = new FOLDER();
+		const folder_entity = folder_obj.create_folder(folder);
+		const tree_body = document.querySelector(`[data-id="${folder._belong}"]`);
+		tree_body.appendChild(folder_entity);
+	});
+	const echo = await fetch("http://localhost:4000/file").then((res) => res.json());
+	echo.files_collection.forEach((file) => {
+		const file_obj = new FILE();
+		const file_entity = file_obj.create_file(file);
+		// file_entity.addEventListener("click", (e) => {
+		// 	inspectLeaf(file._id);
+		// });
+		const tree_body = document.querySelector(`[data-id="${file._belong}"]`);
+		if (tree_body) {
+			tree_body.appendChild(file_entity);
+		} else {
+			console.warn("_belong attribute not found:", file._belong, "| File name:", file.name);
+		}
+	});
 }
+inspectLeaf();
 function setIconState() {
 	tree_selected.node.firstChild.remove();
 	tree_selected.node.prepend(dom_obj.convert_to_dom('<i class="fa-regular fa-folder-open"></i>'));
@@ -110,48 +132,50 @@ function destroyWhenBlur(dom) {
 		}
 	});
 }
-async function storeNewFile(file_data) {
-	await fetch(`http://localhost:4000/file`, {
-		method: "POST",
-		body: JSON.stringify(file_data),
-		headers: {
-			"Content-Type": "application/json",
-		},
-	});
-}
-function enterFileEvent(dom) {
-	dom.addEventListener("keypress", (e) => {
-		if (e.key === "Enter") {
-			isBlur = false;
-			allow_to_add = true;
-			const file_data = { _id: 999, _belong: tree_selected.attrs._id, name: dom.value };
-			const file_obj = new FILE();
-			const file_entity = file_obj.create_file(file_data);
-			dom.parentNode.parentNode.appendChild(file_entity);
-			storeNewFile(file_data);
-			try {
-				dom.parentNode.remove();
-			} catch (err) {
-				// console.log(err);
-			}
+const file_controller = new FILE_CONTROLLER();
+function enterFileEvent(input) {
+	input.addEventListener("keypress", (e) => {
+		if (e.key === "Enter" && input.value) {
+			const file_data = { _belong: tree_selected.attrs._id, name: input.value };
+			file_controller.create(file_data, (res) => {
+				if (res.action) {
+					isBlur = false;
+					bud_queue = null;
+					allow_to_add = true;
+					const file_obj = new FILE();
+					const file_entity = file_obj.create_file(file_data);
+					input.parentNode.parentNode.appendChild(file_entity);
+					try {
+						input.parentNode.remove();
+					} catch (err) {
+						console.warn(err);
+					}
+				}
+			});
 		}
 	});
 }
-function enterFolderEvent(dom) {
-	dom.addEventListener("keypress", (e) => {
-		if (e.key === "Enter") {
-			isBlur = false;
-			allow_to_add = true;
-			const folder_data = { _id: 999, _belong: tree_selected.attrs._id, name: dom.value };
-			const folder_obj = new FOLDER();
-			const folder_entity = folder_obj.create_folder(folder_data);
-			dom.parentNode.parentNode.appendChild(folder_entity);
-			storeNewFile(folder_data);
-			try {
-				dom.parentNode.remove();
-			} catch (err) {
-				// console.log(err);
-			}
+const folder_controller = new FOLDER_CONTROLLER();
+function enterFolderEvent(input) {
+	input.addEventListener("keypress", async (e) => {
+		if (e.key === "Enter" && input.value) {
+			const folder_data = { _belong: tree_selected.attrs._id, name: input.value };
+			folder_controller.create(folder_data, (res) => {
+				if (res.action) {
+					folder_data._id = res._id;
+					isBlur = false;
+					bud_queue = null;
+					allow_to_add = true;
+					const folder_obj = new FOLDER();
+					const folder_entity = folder_obj.create_folder(folder_data);
+					input.parentNode.parentNode.appendChild(folder_entity);
+					try {
+						input.parentNode.remove();
+					} catch (err) {
+						console.warn(err);
+					}
+				}
+			});
 		}
 	});
 }

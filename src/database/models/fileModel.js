@@ -7,4 +7,4 @@ const file_schema = new mongoose.Schema({
 
 const file_model = new mongoose.model("files", file_schema);
 
-export { file_model };
+export default file_model;

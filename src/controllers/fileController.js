@@ -1,15 +1,24 @@
-import { file_model } from "../database/models/fileModel.js";
+import file_model from "../database/models/fileModel.js";
 
-const getFileContent = async (req, res) => {
-	const id = req.params.id;
-
-	res.send(id);
+const getFiles = async (req, res) => {
+	const files_collection = await file_model.find();
+	res.json({
+		files_collection,
+	});
 };
 const storeNewFile = async (req, res) => {
 	const { _belong, name } = req.body;
-	const de = await new file_model({ _belong, name });
-	de.save();
-	console.log("Save file successfully!");
-	res.send("???");
+	await file_model.create({ _belong, name }, (err, doc) => {
+		if (err) {
+			console.log(err);
+			res.json({
+				action: false,
+			});
+		} else {
+			res.json({
+				action: true,
+			});
+		}
+	});
 };
-export { getFileContent, storeNewFile };
+export { getFiles, storeNewFile };
