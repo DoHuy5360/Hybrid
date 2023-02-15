@@ -21,4 +21,18 @@ const storeNewFile = async (req, res) => {
 		}
 	});
 };
-export { getFiles, storeNewFile };
+const putFileToTrash = async (req, res) => {
+	const { _id } = req.body;
+	try {
+		await file_model.updateOne({ _id }, { inTrash: true });
+		res.json({
+			action: true,
+		});
+	} catch (error) {
+		res.json({
+			action: false,
+		});
+		console.log(error);
+	}
+};
+export { getFiles, storeNewFile, putFileToTrash };
