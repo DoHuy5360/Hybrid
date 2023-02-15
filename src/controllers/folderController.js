@@ -1,7 +1,7 @@
 import folder_model from "../database/models/folderModel.js";
 
 const getFolders = async (req, res) => {
-	const folders_collection = await folder_model.find();
+	const folders_collection = await folder_model.find({ inTrash: false });
 	res.json({
 		folders_collection,
 	});
@@ -18,5 +18,18 @@ const storeNewFolder = async (req, res) => {
 		}
 	});
 };
-
-export { getFolders, storeNewFolder };
+const putFolderToTrash = async (req, res) => {
+	const { _id } = req.body;
+	try {
+		await folder_model.updateOne({ _id }, { inTrash: true });
+		res.json({
+			action: true,
+		});
+	} catch (error) {
+		res.json({
+			action: false,
+		});
+		console.log(error);
+	}
+};
+export { getFolders, storeNewFolder, putFolderToTrash };

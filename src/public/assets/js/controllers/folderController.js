@@ -13,6 +13,12 @@ class FOLDER_CONTROLLER extends CONTROLLER {
 			callback(await response.json());
 		}
 	}
+	async delete(params = {}, callback) {
+		const response = await this.post_delete("/folder", params);
+		if (response.ok) {
+			callback(await response.json());
+		}
+	}
 }
 
 export default FOLDER_CONTROLLER;

@@ -48,7 +48,11 @@ async function inspectLeaf() {
 			const folder_obj = new FOLDER();
 			const folder_entity = folder_obj.create_folder(folder);
 			const tree_body = document.querySelector(`[data-id="${folder._belong}"]`);
-			tree_body.appendChild(folder_entity);
+			if (tree_body) {
+				tree_body.appendChild(folder_entity);
+			} else {
+				console.warn("_belong attribute not found:", folder._belong, "| Folder name:", folder.name);
+			}
 		});
 	});
 	file_controller.display((res) => {

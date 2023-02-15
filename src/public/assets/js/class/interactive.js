@@ -45,7 +45,6 @@ class INTERACTIVE {
 			},
 			contextmenu: (action) => {
 				this.identify.addEventListener("contextmenu", (e) => {
-					e.preventDefault();
 					e.stopImmediatePropagation();
 					action(this.identify, e);
 				});
