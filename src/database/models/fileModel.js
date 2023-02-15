@@ -3,8 +3,9 @@ import mongoose from "../connect.js";
 const file_schema = new mongoose.Schema({
 	_belong: String,
 	name: String,
+	inTrash: { type: Boolean, default: "false" },
 });
 
 const file_model = new mongoose.model("files", file_schema);
 
-export { file_model };
+export default file_model;

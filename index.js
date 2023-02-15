@@ -3,7 +3,8 @@ import { fileURLToPath } from "url";
 import { dirname } from "path";
 import path from "path";
 import fs from "fs";
-import { getFileContent, storeNewFile } from "./src/controllers/fileController.js";
+import { getFiles, storeNewFile } from "./src/controllers/fileController.js";
+import { getFolders, putFolderToTrash, storeNewFolder } from "./src/controllers/folderController.js";
 
 //*[local] D:\Javascript\web\Hybrid\index.js
 const __filename = fileURLToPath(import.meta.url);
@@ -42,8 +43,11 @@ app.get("/components/:branch", (req, res) => {
 		res.render("errors/404");
 	}
 });
-app.get("/inspect/:id", getFileContent);
+app.get("/file", getFiles);
 app.post("/file", storeNewFile);
+app.get("/folder", getFolders);
+app.post("/folder", storeNewFolder);
+app.delete("/folder", putFolderToTrash);
 app.get("/cake/:code", (req, res) => {
 	const code = req.params.code;
 	res.render(`test/components/${code}`);
