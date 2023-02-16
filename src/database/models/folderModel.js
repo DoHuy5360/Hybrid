@@ -1,6 +1,7 @@
 import mongoose from "../connect.js";
 
 const folder_schema = mongoose.Schema({
+	_root: String,
 	_belong: String,
 	name: String,
 	inTrash: { type: Boolean, default: false },
