@@ -34,6 +34,11 @@ add_folder.addEventListener("click", (e) => {
 				name: folder_name,
 				isRoot: true,
 			}),
-		});
+		})
+			.then((res) => res.json())
+			.then((data) => {
+				const new_folder = createFolder({ _id: data._id, name: folder_name });
+				wrap_root.appendChild(new_folder);
+			});
 	}
 });
