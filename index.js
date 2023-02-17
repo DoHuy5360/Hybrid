@@ -5,7 +5,7 @@ import path from "path";
 import fs from "fs";
 import { getFiles, storeNewFile } from "./src/controllers/fileController.js";
 import { getFolders, putFolderToTrash, storeNewFolder } from "./src/controllers/folderController.js";
-import { inspect } from "./src/controllers/rootController.js";
+import { createRootFolder, inspect } from "./src/controllers/rootController.js";
 
 //*[local] D:\Javascript\web\Hybrid\index.js
 const __filename = fileURLToPath(import.meta.url);
@@ -45,6 +45,8 @@ app.get("/components/:branch", (req, res) => {
 	}
 });
 app.get("/inspect/:root", inspect);
+app.post("/inspect", createRootFolder);
+
 app.get("/file", getFiles);
 app.post("/file", storeNewFile);
 app.get("/folder", getFolders);

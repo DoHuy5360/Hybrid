@@ -2,16 +2,15 @@ import file_model from "../database/models/fileModel.js";
 import folder_model from "../database/models/folderModel.js";
 
 const getFolders = async (req, res) => {
-	const isRoot = req.query.root;
-	console.log(isRoot);
-	const folders_collection = await folder_model.find({ isRoot, inTrash: false });
+	const { isRoot, _root } = req.query;
+	const folders_collection = await folder_model.find({ isRoot, _root, inTrash: false });
 	res.json({
 		folders_collection,
 	});
 };
 const storeNewFolder = async (req, res) => {
-	const { _belong, name } = req.body;
-	await folder_model.create({ _belong, name }, (err, doc) => {
+	const { _belong, _root, name, isRoot = false } = req.body;
+	await folder_model.create({ _belong, _root, name, isRoot }, (err, doc) => {
 		if (err) {
 			res.json({ action: false });
 			console.log(err);

@@ -43,36 +43,34 @@ const folder_controller = new FOLDER_CONTROLLER();
 // });
 const laboratory = document.querySelector(".laboratory");
 const root = document.querySelector("#root");
-async function inspectLeaf() {
-	folder_controller.display((res) => {
-		res.folders_collection.forEach((folder) => {
-			const folder_obj = new FOLDER();
-			const folder_entity = folder_obj.create_folder(folder);
-			const tree_body = document.querySelector(`[data-id="${folder._belong}"]`);
-			if (tree_body) {
-				tree_body.appendChild(folder_entity);
-			} else {
-				console.warn("_belong attribute not found:", folder._belong, "| Folder name:", folder.name);
-			}
-		});
+const data_id = root.getAttribute("data-id");
+folder_controller.display(`?isRoot=false&_root=${data_id}`, (res) => {
+	res.folders_collection.forEach((folder) => {
+		const folder_obj = new FOLDER();
+		const folder_entity = folder_obj.create_folder(folder);
+		const tree_body = document.querySelector(`[data-id="${folder._belong}"]`);
+		if (tree_body) {
+			tree_body.appendChild(folder_entity);
+		} else {
+			console.warn("_belong attribute not found:", folder._belong, "| Folder name:", folder.name);
+		}
 	});
-	file_controller.display((res) => {
-		res.files_collection.forEach((file) => {
-			const file_obj = new FILE();
-			const file_entity = file_obj.create_file(file);
-			// file_entity.addEventListener("click", (e) => {
-			// 	inspectLeaf(file._id);
-			// });
-			const tree_body = document.querySelector(`[data-id="${file._belong}"]`);
-			if (tree_body) {
-				tree_body.appendChild(file_entity);
-			} else {
-				console.warn("_belong attribute not found:", file._belong, "| File name:", file.name);
-			}
-		});
+});
+file_controller.display((res) => {
+	res.files_collection.forEach((file) => {
+		const file_obj = new FILE();
+		const file_entity = file_obj.create_file(file);
+		// file_entity.addEventListener("click", (e) => {
+		// 	inspectLeaf(file._id);
+		// });
+		const tree_body = document.querySelector(`[data-id="${file._belong}"]`);
+		if (tree_body) {
+			tree_body.appendChild(file_entity);
+		} else {
+			console.warn("_belong attribute not found:", file._belong, "| File name:", file.name);
+		}
 	});
-}
-inspectLeaf();
+});
 function setIconState() {
 	tree_selected.node.firstChild.remove();
 	tree_selected.node.prepend(dom_obj.convert_to_dom('<i class="fa-regular fa-folder-open"></i>'));
@@ -110,6 +108,20 @@ add_file.addEventListener("click", (e) => {
 	if (tree_selected.node && allow_to_add) {
 		setIconState();
 		budding_crafting({ setEnterEvent: enterFileEvent, icon: '<i class="fa-solid fa-file"></i>' });
+	} else {
+		allow_to_add = false;
+		tree_selected.attrs = { _id: data_id };
+		const dom_factory = new DOM_FACTORY();
+		const wrap_input = dom_factory.create({ type: "li", attribute: { class: "branch" } });
+		const shoot_wrapper = dom_factory.create({ type: "div", attribute: { class: "shoot-wrapper" } });
+		const input = dom_factory.create({ type: "input", attribute: { class: "shoot" } });
+		enterFolderEvent(input);
+		destroyWhenBlur(input);
+		shoot_wrapper.insertAdjacentHTML("afterbegin", '<i class="fa-solid fa-file"></i>');
+		shoot_wrapper.appendChild(input);
+		wrap_input.appendChild(shoot_wrapper);
+		root.appendChild(wrap_input);
+		input.focus();
 	}
 });
 const dom_obj = new DOM_FACTORY();
@@ -118,6 +130,20 @@ add_folder.addEventListener("click", (e) => {
 	if (tree_selected.node && allow_to_add) {
 		setIconState();
 		budding_crafting({ setEnterEvent: enterFolderEvent, icon: '<i class="fa-solid fa-folder"></i>', thisIsFolder: true });
+	} else {
+		allow_to_add = false;
+		tree_selected.attrs = { _id: data_id };
+		const dom_factory = new DOM_FACTORY();
+		const wrap_input = dom_factory.create({ type: "li", attribute: { class: "branch" } });
+		const shoot_wrapper = dom_factory.create({ type: "div", attribute: { class: "shoot-wrapper" } });
+		const input = dom_factory.create({ type: "input", attribute: { class: "shoot" } });
+		enterFolderEvent(input);
+		destroyWhenBlur(input);
+		shoot_wrapper.insertAdjacentHTML("afterbegin", '<i class="fa-solid fa-folder"></i>');
+		shoot_wrapper.appendChild(input);
+		wrap_input.appendChild(shoot_wrapper);
+		root.appendChild(wrap_input);
+		input.focus();
 	}
 });
 let isBlur = true;
@@ -138,7 +164,7 @@ function destroyWhenBlur(dom) {
 function enterFileEvent(input) {
 	input.addEventListener("keypress", (e) => {
 		if (e.key === "Enter" && input.value) {
-			const file_data = { _belong: tree_selected.attrs._id, name: input.value };
+			const file_data = { _belong: tree_selected.attrs._id, _root: data_id, name: input.value };
 			file_controller.create(file_data, (res) => {
 				if (res.action) {
 					isBlur = false;
@@ -160,7 +186,7 @@ function enterFileEvent(input) {
 function enterFolderEvent(input) {
 	input.addEventListener("keypress", async (e) => {
 		if (e.key === "Enter" && input.value) {
-			const folder_data = { _belong: tree_selected.attrs._id, name: input.value };
+			const folder_data = { _belong: tree_selected.attrs._id, _root: data_id, name: input.value };
 			folder_controller.create(folder_data, (res) => {
 				if (res.action) {
 					folder_data._id = res._id;

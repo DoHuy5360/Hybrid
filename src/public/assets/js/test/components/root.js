@@ -1,5 +1,5 @@
-const wrap_root = document.querySelector(".wrap-root");
-fetch("/folder?root=true")
+const wrap_root = document.querySelector(".wrap-folder");
+fetch("/folder?isRoot=true&_root=root")
 	.then((res) => res.json())
 	.then((data) => {
 		data.folders_collection.forEach((folder) => {
@@ -21,3 +21,24 @@ function createFolder({ _id, name }) {
 function eventClick(folder) {
 	folder.addEventListener("click", (e) => {});
 }
+const add_folder = document.querySelector("#add-folder");
+add_folder.addEventListener("click", (e) => {
+	const folder_name = prompt("Enter folder name");
+	if (folder_name) {
+		fetch("/folder", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({
+				_belong: "root",
+				_root: "root",
+				name: folder_name,
+				isRoot: true,
+			}),
+		})
+			.then((res) => res.json())
+			.then((data) => {
+				const new_folder = createFolder({ _id: data._id, name: folder_name });
+				wrap_root.appendChild(new_folder);
+			});
+	}
+});

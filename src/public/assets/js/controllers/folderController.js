@@ -3,8 +3,8 @@ class FOLDER_CONTROLLER extends CONTROLLER {
 	constructor() {
 		super();
 	}
-	async display(callback) {
-		const response = await this.get("/folder?root=false");
+	async display(params, callback) {
+		const response = await this.get(`/folder${params}`);
 		callback(await response.json());
 	}
 	async create(params, callback) {

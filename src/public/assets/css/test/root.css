@@ -9,6 +9,7 @@
 	padding: 30px;
 	display: flex;
 	gap: 30px;
+	flex-direction: column;
 }
 .folder {
 	font-size: 4rem;
@@ -30,4 +31,13 @@
 .folder-wrapper i {
 	font-size: 4rem;
 	color: #fae5b3;
+}
+.wrap-folder {
+	display: flex;
+	gap: 30px;
+}
+.action-button {
+	font-size: 2rem;
+	color: #b1e1cf;
+	cursor: pointer;
 }

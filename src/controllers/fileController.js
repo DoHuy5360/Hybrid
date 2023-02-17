@@ -7,8 +7,8 @@ const getFiles = async (req, res) => {
 	});
 };
 const storeNewFile = async (req, res) => {
-	const { _belong, name } = req.body;
-	await file_model.create({ _belong, name }, (err, doc) => {
+	const { _belong, _root, name } = req.body;
+	await file_model.create({ _belong, _root, name }, (err, doc) => {
 		if (err) {
 			console.log(err);
 			res.json({
