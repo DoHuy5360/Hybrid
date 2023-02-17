@@ -1,10 +1,10 @@
 extends ../../template/test.pug
 
 block link
-    link(rel="stylesheet", href="../assets/css/upload_file/styles.css")
+    link(rel="stylesheet", href="../assets/css/test/upload_file.css")
 block script 
-    script(type="module",src="../assets/js/test/upload_file/scripts.js") 
-    <script src="https://kit.fontawesome.com/22e1005e84.js" crossorigin="anonymous"></script>
+    script(type="module",src="../assets/js/test/components/upload_file.js") 
+    script(src="https://kit.fontawesome.com/22e1005e84.js" crossorigin="anonymous")
 block title 
     title Upload file
 block content
@@ -31,7 +31,7 @@ block content
                     div.add-folder
                         <i class="fa-solid fa-folder-plus"></i>
             .sidebar
-                ul.root(data-id="-1")
+                ul.root#root(data-id=_root)
                     //- li.branch
                     //-     div.tree name 0
                     //-     ul.branch-view

@@ -1,0 +1,15 @@
+extends ../../template/test.pug
+
+block link
+    link(rel="stylesheet", href="../assets/css/test/root.css")
+block script
+    script(type="module",src="../assets/js/test/components/root.js") 
+    script(src="https://kit.fontawesome.com/22e1005e84.js" crossorigin="anonymous")
+block title 
+    title Root
+
+block content 
+    .wrap 
+        .wrap-root
+            .folder
+                i(class="fa-solid fa-folder")
