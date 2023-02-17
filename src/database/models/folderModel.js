@@ -4,6 +4,7 @@ const folder_schema = mongoose.Schema({
 	_root: String,
 	_belong: String,
 	name: String,
+	isRoot: { type: Boolean, default: false },
 	inTrash: { type: Boolean, default: false },
 });
 
