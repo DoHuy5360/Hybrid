@@ -4,7 +4,7 @@ class FOLDER_CONTROLLER extends CONTROLLER {
 		super();
 	}
 	async display(callback) {
-		const response = await this.get("/folder");
+		const response = await this.get("/folder?root=false");
 		callback(await response.json());
 	}
 	async create(params, callback) {

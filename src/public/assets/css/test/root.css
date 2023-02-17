@@ -1,0 +1,33 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	/* outline: 1px solid red; */
+	font-family: Arial, Helvetica, sans-serif;
+}
+.wrap-root {
+	padding: 30px;
+	display: flex;
+	gap: 30px;
+}
+.folder {
+	font-size: 4rem;
+	color: #fae5b3;
+	cursor: pointer;
+}
+.folder:hover {
+	color: #f9cd65;
+}
+.folder:active {
+	color: #fae5b3;
+}
+.folder-wrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	cursor: pointer;
+}
+.folder-wrapper i {
+	font-size: 4rem;
+	color: #fae5b3;
+}

@@ -2,7 +2,9 @@ import file_model from "../database/models/fileModel.js";
 import folder_model from "../database/models/folderModel.js";
 
 const getFolders = async (req, res) => {
-	const folders_collection = await folder_model.find({ inTrash: false });
+	const isRoot = req.query.root;
+	console.log(isRoot);
+	const folders_collection = await folder_model.find({ isRoot, inTrash: false });
 	res.json({
 		folders_collection,
 	});
