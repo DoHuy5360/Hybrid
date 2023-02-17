@@ -108,6 +108,20 @@ add_file.addEventListener("click", (e) => {
 	if (tree_selected.node && allow_to_add) {
 		setIconState();
 		budding_crafting({ setEnterEvent: enterFileEvent, icon: '<i class="fa-solid fa-file"></i>' });
+	} else {
+		allow_to_add = false;
+		tree_selected.attrs = { _id: data_id };
+		const dom_factory = new DOM_FACTORY();
+		const wrap_input = dom_factory.create({ type: "li", attribute: { class: "branch" } });
+		const shoot_wrapper = dom_factory.create({ type: "div", attribute: { class: "shoot-wrapper" } });
+		const input = dom_factory.create({ type: "input", attribute: { class: "shoot" } });
+		enterFolderEvent(input);
+		destroyWhenBlur(input);
+		shoot_wrapper.insertAdjacentHTML("afterbegin", '<i class="fa-solid fa-file"></i>');
+		shoot_wrapper.appendChild(input);
+		wrap_input.appendChild(shoot_wrapper);
+		root.appendChild(wrap_input);
+		input.focus();
 	}
 });
 const dom_obj = new DOM_FACTORY();
@@ -117,6 +131,7 @@ add_folder.addEventListener("click", (e) => {
 		setIconState();
 		budding_crafting({ setEnterEvent: enterFolderEvent, icon: '<i class="fa-solid fa-folder"></i>', thisIsFolder: true });
 	} else {
+		allow_to_add = false;
 		tree_selected.attrs = { _id: data_id };
 		const dom_factory = new DOM_FACTORY();
 		const wrap_input = dom_factory.create({ type: "li", attribute: { class: "branch" } });
@@ -128,6 +143,7 @@ add_folder.addEventListener("click", (e) => {
 		shoot_wrapper.appendChild(input);
 		wrap_input.appendChild(shoot_wrapper);
 		root.appendChild(wrap_input);
+		input.focus();
 	}
 });
 let isBlur = true;
