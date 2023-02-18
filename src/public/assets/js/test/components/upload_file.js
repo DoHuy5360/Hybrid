@@ -3,6 +3,7 @@ import FILE from "../../class/file.js";
 import DOM_FACTORY from "../../class/dom_factory.js";
 import FOLDER_CONTROLLER from "../../controllers/folderController.js";
 import FILE_CONTROLLER from "../../controllers/fileController.js";
+import INTERACTIVE from "../../class/interactive.js";
 // const list_folder = [
 // 	{ _id: 0, _belong: -1, name: "Hybrid" },
 // 	{ _id: 1, _belong: 0, name: "node_modules" },
@@ -206,3 +207,13 @@ function enterFolderEvent(input) {
 		}
 	});
 }
+const window_entity = new INTERACTIVE(document.body);
+window_entity.control((on) => {
+	on.click(() => {
+		if (tree_selected.node) {
+			tree_selected.node.classList.remove("selected");
+			tree_selected.node = undefined;
+		}
+		tree_selected.attrs = undefined;
+	});
+});
