@@ -3,6 +3,7 @@ const content = document.querySelector(".content");
 class FILE extends DOM_FACTORY {
 	constructor() {
 		super();
+		this.open = false;
 	}
 
 	create_file(file) {
@@ -13,7 +14,10 @@ class FILE extends DOM_FACTORY {
 		this.identify = leaf;
 		this.control((on) => {
 			on.click(() => {
-				content.innerHTML = file.content;
+				if (!this.open) {
+					content.value = file.content;
+					this.open = true;
+				}
 			});
 		});
 		return leaf;
