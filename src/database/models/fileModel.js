@@ -4,7 +4,7 @@ const file_schema = new mongoose.Schema({
 	_belong: String,
 	_root: String,
 	name: String,
-	content: String,
+	content: { type: String, default: "" },
 	inTrash: { type: Boolean, default: "false" },
 });
 
