@@ -1,20 +1,12 @@
+import CONTENT_TABLE from "./content_table.js";
 import DOM_FACTORY from "./dom_factory.js";
-const content = document.querySelector(".content");
-content.addEventListener("keydown", (e) => {
-	if (e.ctrlKey && e.keyCode === 83) {
-		e.preventDefault();
-		console.log("Save");
-		fetch("/file/content", {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({
-				_id: file_selected.attrs._id,
-				content: content.value,
-			}),
-		});
-	}
-});
-let file_selected = {
+import INTERACTIVE from "./interactive.js";
+
+// const origin_sign = '<i class="fa-solid fa-xmark"></i>';
+const table_entity = new CONTENT_TABLE();
+export const file_name = document.querySelector(".file-name");
+const laboratory = document.querySelector(".laboratory");
+export let file_selected = {
 	node: undefined,
 	attrs: undefined,
 };
@@ -32,10 +24,13 @@ class FILE extends DOM_FACTORY {
 		this.identify = leaf;
 		this.control((on) => {
 			on.click(() => {
+				file_name.innerText = file.name;
 				file_selected.node = leaf;
 				file_selected.attrs = file;
 				if (!this.open) {
-					content.value = file.content;
+					const content_table = table_entity.create_content_table();
+					laboratory.appendChild(content_table);
+					content_table.value = file.content;
 					this.open = true;
 				}
 			});
