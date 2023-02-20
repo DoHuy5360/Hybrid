@@ -11,26 +11,28 @@ export let file_selected = {
 	attrs: undefined,
 };
 class FILE extends DOM_FACTORY {
-	constructor() {
+	constructor({ name, content }) {
 		super();
 		this.open = false;
+		this.name = name;
+		this.content = content;
 	}
 
 	create_file(file) {
 		const leaf = this.create({ type: "li", attribute: { class: "leaf" } });
-		const name = this.create({ type: "div", text: file.name });
+		const name = this.create({ type: "div", text: this.name });
 		leaf.appendChild(name);
 		leaf.insertAdjacentHTML("afterbegin", '<i class="fa-solid fa-file"></i>');
 		this.identify = leaf;
 		this.control((on) => {
 			on.click(() => {
-				file_name.innerText = file.name;
+				file_name.innerText = this.name;
 				file_selected.node = leaf;
 				file_selected.attrs = file;
 				if (!this.open) {
-					const content_table = table_entity.create_content_table();
+					const content_table = table_entity.create_content_table(this);
 					laboratory.appendChild(content_table);
-					content_table.value = file.content;
+					content_table.value = this.content;
 					this.open = true;
 				}
 			});

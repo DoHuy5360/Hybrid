@@ -59,7 +59,7 @@ folder_controller.display(`?isRoot=false&_root=${data_id}`, (res) => {
 });
 file_controller.display((res) => {
 	res.files_collection.forEach((file) => {
-		const file_obj = new FILE();
+		const file_obj = new FILE(file);
 		const file_entity = file_obj.create_file(file);
 		// file_entity.addEventListener("click", (e) => {
 		// 	inspectLeaf(file._id);

@@ -4,12 +4,19 @@ import { file_selected } from "./file.js";
 class CONTENT_TABLE extends DOM_FACTORY {
 	constructor() {
 		super();
-		this.change_sign = '<i class="fa-solid fa-circle-notch"></i>';
+		this.change_sign = this.convert_to_dom('<i class="fa-solid fa-circle-notch"></i>');
+		this.close_sign = this.convert_to_dom('<i class="fa-solid fa-xmark"></i>');
 		this.file_name_changed = false;
 	}
-	create_content_table() {
+	create_content_table(file_reference) {
 		const table_entity = this.create({ type: "textarea", attribute: { class: "content", spellcheck: false } });
 		this.identify = table_entity;
+		this.close_sign.addEventListener("click", (e) => {
+			table_entity.remove();
+			file_name.innerHTML = "";
+			file_reference.open = false;
+		});
+		file_name.appendChild(this.close_sign);
 		this.control((on) => {
 			on.keydown(async (thisTable, e) => {
 				if (e.ctrlKey && e.keyCode === 83) {
@@ -23,8 +30,10 @@ class CONTENT_TABLE extends DOM_FACTORY {
 						}),
 					}).then((res) => res.json());
 					if (response.action) {
-						file_name.lastChild.remove();
+						// file_name.lastChild.remove();
+						this.change_sign.remove();
 						this.file_name_changed = false;
+						file_reference.content = table_entity.value;
 					} else {
 						console.log(response);
 					}
@@ -32,7 +41,7 @@ class CONTENT_TABLE extends DOM_FACTORY {
 			});
 			on.input(() => {
 				if (!this.file_name_changed) {
-					file_name.insertAdjacentHTML("beforeend", this.change_sign);
+					file_name.appendChild(this.change_sign);
 					this.file_name_changed = true;
 				}
 			});
