@@ -55,6 +55,21 @@ class INTERACTIVE {
 					action(this.identify, e);
 				});
 			},
+			keydown: (action) => {
+				this.identify.addEventListener("keydown", (e) => {
+					action(this.identify, e);
+				});
+			},
+			change: (action) => {
+				this.identify.addEventListener("change", (e) => {
+					action(this.identify, e);
+				});
+			},
+			input: (action) => {
+				this.identify.addEventListener("input", (e) => {
+					action(this.identify, e);
+				});
+			},
 		};
 		implement(actions);
 		return this;

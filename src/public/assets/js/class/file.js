@@ -1,41 +1,45 @@
+import CONTENT_TABLE from "./content_table.js";
 import DOM_FACTORY from "./dom_factory.js";
-const content = document.querySelector(".content");
-content.addEventListener("keydown", (e) => {
-	if (e.ctrlKey && e.keyCode === 83) {
-		e.preventDefault();
-		console.log("Save");
-		fetch("/file/content", {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({
-				_id: file_selected.attrs._id,
-				content: content.value,
-			}),
-		});
-	}
-});
-let file_selected = {
+import INTERACTIVE from "./interactive.js";
+import TAB from "./tab.js";
+import { tab_logic } from "./tab.js";
+// const origin_sign = '<i class="fa-solid fa-xmark"></i>';
+
+export const file_name = document.querySelector(".file-name");
+const laboratory = document.querySelector(".laboratory");
+export let file_selected = {
+	previous: undefined,
 	node: undefined,
 	attrs: undefined,
 };
 class FILE extends DOM_FACTORY {
-	constructor() {
+	constructor(file) {
 		super();
 		this.open = false;
+		this.attribute = file;
+		this.name = file.name;
+		this.content = file.content || "";
 	}
 
-	create_file(file) {
+	create_file() {
 		const leaf = this.create({ type: "li", attribute: { class: "leaf" } });
-		const name = this.create({ type: "div", text: file.name });
+		const name = this.create({ type: "div", text: this.name });
 		leaf.appendChild(name);
 		leaf.insertAdjacentHTML("afterbegin", '<i class="fa-solid fa-file"></i>');
 		this.identify = leaf;
 		this.control((on) => {
 			on.click(() => {
 				file_selected.node = leaf;
-				file_selected.attrs = file;
+				file_selected.attrs = this.attribute;
 				if (!this.open) {
-					content.value = file.content;
+					const tab_entity = new TAB();
+					const table_entity = new CONTENT_TABLE();
+					const content_table = table_entity.create_content_table(this);
+					const tab = tab_entity.create_tab(this, content_table);
+					tab_logic.replace_handle({ domObject: tab, className: "selected" });
+					file_name.appendChild(tab);
+					laboratory.appendChild(content_table);
+					content_table.value = this.content;
 					this.open = true;
 				}
 			});

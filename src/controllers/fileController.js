@@ -23,7 +23,13 @@ const storeNewFile = async (req, res) => {
 };
 const storeFileContent = async (req, res) => {
 	const { _id, content } = req.body;
-	await file_model.updateOne({ _id }, { content });
+	try {
+		await file_model.updateOne({ _id }, { content });
+		res.json({ action: true });
+	} catch (err) {
+		console.log(err);
+		res.json({ action: false });
+	}
 };
 const putFileToTrash = async (req, res) => {
 	const { _id } = req.body;
