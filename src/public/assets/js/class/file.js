@@ -2,12 +2,13 @@ import CONTENT_TABLE from "./content_table.js";
 import DOM_FACTORY from "./dom_factory.js";
 import INTERACTIVE from "./interactive.js";
 import TAB from "./tab.js";
-
+import { tab_logic } from "./tab.js";
 // const origin_sign = '<i class="fa-solid fa-xmark"></i>';
 
 export const file_name = document.querySelector(".file-name");
 const laboratory = document.querySelector(".laboratory");
 export let file_selected = {
+	previous: undefined,
 	node: undefined,
 	attrs: undefined,
 };
@@ -35,6 +36,7 @@ class FILE extends DOM_FACTORY {
 					const table_entity = new CONTENT_TABLE();
 					const content_table = table_entity.create_content_table(this);
 					const tab = tab_entity.create_tab(this, content_table);
+					tab_logic.replace_handle({ domObject: tab, className: "selected" });
 					file_name.appendChild(tab);
 					laboratory.appendChild(content_table);
 					content_table.value = this.content;

@@ -14,7 +14,6 @@ class CONTENT_TABLE extends DOM_FACTORY {
 			on.keydown(async (thisTable, e) => {
 				if (e.ctrlKey && e.keyCode === 83) {
 					e.preventDefault();
-					console.log(file_selected);
 					const response = await fetch("/file/content", {
 						method: "POST",
 						headers: { "Content-Type": "application/json" },
