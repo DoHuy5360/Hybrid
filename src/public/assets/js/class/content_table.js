@@ -5,18 +5,17 @@ class CONTENT_TABLE extends DOM_FACTORY {
 	constructor() {
 		super();
 		this.change_sign = this.convert_to_dom('<i class="fa-solid fa-circle-notch"></i>');
-		this.close_sign = this.convert_to_dom('<i class="fa-solid fa-xmark"></i>');
 		this.file_name_changed = false;
 	}
 	create_content_table(file_reference) {
 		const table_entity = this.create({ type: "textarea", attribute: { class: "content", spellcheck: false } });
 		this.identify = table_entity;
-		this.close_sign.addEventListener("click", (e) => {
-			table_entity.remove();
-			file_name.innerHTML = "";
-			file_reference.open = false;
-		});
-		file_name.appendChild(this.close_sign);
+		// this.close_sign.addEventListener("click", (e) => {
+		// 	table_entity.remove();
+		// 	file_name.innerHTML = "";
+		// 	file_reference.open = false;
+		// });
+		// file_name.appendChild(this.close_sign);
 		this.control((on) => {
 			on.keydown(async (thisTable, e) => {
 				if (e.ctrlKey && e.keyCode === 83) {

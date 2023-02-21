@@ -1,6 +1,7 @@
 import CONTENT_TABLE from "./content_table.js";
 import DOM_FACTORY from "./dom_factory.js";
 import INTERACTIVE from "./interactive.js";
+import TAB from "./tab.js";
 
 // const origin_sign = '<i class="fa-solid fa-xmark"></i>';
 const table_entity = new CONTENT_TABLE();
@@ -26,11 +27,13 @@ class FILE extends DOM_FACTORY {
 		this.identify = leaf;
 		this.control((on) => {
 			on.click(() => {
-				file_name.innerText = this.name;
 				file_selected.node = leaf;
 				file_selected.attrs = file;
 				if (!this.open) {
+					const tab_entity = new TAB();
 					const content_table = table_entity.create_content_table(this);
+					const tab = tab_entity.create_tab(this, content_table);
+					file_name.appendChild(tab);
 					laboratory.appendChild(content_table);
 					content_table.value = this.content;
 					this.open = true;

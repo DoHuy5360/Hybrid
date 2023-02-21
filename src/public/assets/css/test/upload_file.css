@@ -123,10 +123,7 @@
 .laboratory {
 	color: #8fbc8f;
 	height: calc(100% - 30px);
-	display: flex;
-	flex-wrap: wrap;
-	overflow: auto;
-	gap: 1px;
+	position: relative;
 }
 .content {
 	width: 100%;
@@ -137,14 +134,27 @@
 	font-size: 2rem;
 	resize: horizontal;
 	border: unset;
+	position: absolute;
+	z-index: 0;
+}
+.content.selected {
+	z-index: 1;
 }
 .file-name {
 	color: #f5f5f5;
-	white-space: nowrap;
-	padding: 0 10px;
 	display: flex;
 	align-items: center;
-	justify-content: center;
 	gap: 5px;
 	font-size: 0.8rem;
+}
+.tab {
+	background-color: #87cefa;
+	white-space: nowrap;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 5px;
+	padding: 10px;
+	height: 100%;
+	cursor: pointer;
 }
