@@ -10,16 +10,11 @@ class CONTENT_TABLE extends DOM_FACTORY {
 	create_content_table(file_reference) {
 		const table_entity = this.create({ type: "textarea", attribute: { class: "content", spellcheck: false } });
 		this.identify = table_entity;
-		// this.close_sign.addEventListener("click", (e) => {
-		// 	table_entity.remove();
-		// 	file_name.innerHTML = "";
-		// 	file_reference.open = false;
-		// });
-		// file_name.appendChild(this.close_sign);
 		this.control((on) => {
 			on.keydown(async (thisTable, e) => {
 				if (e.ctrlKey && e.keyCode === 83) {
 					e.preventDefault();
+					console.log(file_selected);
 					const response = await fetch("/file/content", {
 						method: "POST",
 						headers: { "Content-Type": "application/json" },
@@ -29,7 +24,6 @@ class CONTENT_TABLE extends DOM_FACTORY {
 						}),
 					}).then((res) => res.json());
 					if (response.action) {
-						// file_name.lastChild.remove();
 						this.change_sign.remove();
 						this.file_name_changed = false;
 						file_reference.content = table_entity.value;

@@ -4,7 +4,7 @@ import INTERACTIVE from "./interactive.js";
 import TAB from "./tab.js";
 
 // const origin_sign = '<i class="fa-solid fa-xmark"></i>';
-const table_entity = new CONTENT_TABLE();
+
 export const file_name = document.querySelector(".file-name");
 const laboratory = document.querySelector(".laboratory");
 export let file_selected = {
@@ -12,14 +12,15 @@ export let file_selected = {
 	attrs: undefined,
 };
 class FILE extends DOM_FACTORY {
-	constructor({ name, content = "" }) {
+	constructor(file) {
 		super();
 		this.open = false;
-		this.name = name;
-		this.content = content;
+		this.attribute = file;
+		this.name = file.name;
+		this.content = file.content || "";
 	}
 
-	create_file(file) {
+	create_file() {
 		const leaf = this.create({ type: "li", attribute: { class: "leaf" } });
 		const name = this.create({ type: "div", text: this.name });
 		leaf.appendChild(name);
@@ -28,9 +29,10 @@ class FILE extends DOM_FACTORY {
 		this.control((on) => {
 			on.click(() => {
 				file_selected.node = leaf;
-				file_selected.attrs = file;
+				file_selected.attrs = this.attribute;
 				if (!this.open) {
 					const tab_entity = new TAB();
+					const table_entity = new CONTENT_TABLE();
 					const content_table = table_entity.create_content_table(this);
 					const tab = tab_entity.create_tab(this, content_table);
 					file_name.appendChild(tab);

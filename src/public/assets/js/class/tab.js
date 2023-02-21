@@ -1,5 +1,8 @@
 import DOM_FACTORY from "./dom_factory.js";
-
+import LOGIC from "./logic.js";
+import { file_selected } from "./file.js";
+const tab_logic = new LOGIC();
+const table_logic = new LOGIC();
 class TAB extends DOM_FACTORY {
 	constructor() {
 		super();
@@ -14,21 +17,14 @@ class TAB extends DOM_FACTORY {
 			file_reference.open = false;
 		});
 		file_tab.addEventListener("click", (e) => {
-			tabSelected(content_table);
+			tab_logic.replace_handle({ domObject: file_tab, className: "selected" });
+			table_logic.replace_handle({ domObject: content_table, className: "selected" });
+			file_selected.node = file_reference.identify;
+			file_selected.attrs = file_reference.attribute;
 		});
 		file_tab.appendChild(file_name);
 		file_tab.appendChild(this.close_sign);
 		return file_tab;
 	}
-}
-let previous_tab;
-function tabSelected(dom) {
-	if (!previous_tab) {
-		dom.classList.add("selected");
-	} else {
-		previous_tab.classList.remove("selected");
-		dom.classList.add("selected");
-	}
-	previous_tab = dom;
 }
 export default TAB;

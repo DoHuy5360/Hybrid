@@ -26,7 +26,7 @@ folder_controller.display(`?isRoot=false&_root=${data_id}`, (res) => {
 file_controller.display((res) => {
 	res.files_collection.forEach((file) => {
 		const file_obj = new FILE(file);
-		const file_entity = file_obj.create_file(file);
+		const file_entity = file_obj.create_file();
 		const tree_body = document.querySelector(`[data-id="${file._belong}"]`);
 		if (tree_body) {
 			tree_body.appendChild(file_entity);
@@ -137,7 +137,7 @@ function enterFileEvent(input) {
 					isBlur = false;
 					bud_queue = null;
 					allow_to_add = true;
-					const file_obj = new FILE({ name: input.value });
+					const file_obj = new FILE(file_data);
 					const file_entity = file_obj.create_file(file_data);
 					input.parentNode.parentNode.appendChild(file_entity);
 					try {

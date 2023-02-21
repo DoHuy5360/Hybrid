@@ -157,4 +157,9 @@
 	padding: 10px;
 	height: 100%;
 	cursor: pointer;
+	user-select: none;
+}
+.tab.selected {
+	background-color: #f5f5f5;
+	color: #21222c;
 }
