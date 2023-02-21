@@ -163,3 +163,14 @@
 	background-color: #f5f5f5;
 	color: #21222c;
 }
+.close-tab {
+	height: 15px;
+	aspect-ratio: 1;
+	display: grid;
+	place-items: center;
+	border-radius: 50%;
+}
+.close-tab:hover {
+	background-color: #f3b6c2;
+	color: #21222c;
+}
