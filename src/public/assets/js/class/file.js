@@ -11,7 +11,7 @@ export let file_selected = {
 	attrs: undefined,
 };
 class FILE extends DOM_FACTORY {
-	constructor({ name, content }) {
+	constructor({ name, content = "" }) {
 		super();
 		this.open = false;
 		this.name = name;

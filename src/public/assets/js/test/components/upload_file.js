@@ -69,6 +69,7 @@ function budding_crafting({ setEnterEvent, icon, thisIsFolder }) {
 let allow_to_add = true;
 const add_file = document.querySelector(".add-file");
 add_file.addEventListener("click", (e) => {
+	e.stopImmediatePropagation();
 	if (tree_selected.node && allow_to_add) {
 		setIconState();
 		budding_crafting({ setEnterEvent: enterFileEvent, icon: '<i class="fa-solid fa-file"></i>' });
@@ -91,6 +92,7 @@ add_file.addEventListener("click", (e) => {
 const dom_obj = new DOM_FACTORY();
 const add_folder = document.querySelector(".add-folder");
 add_folder.addEventListener("click", (e) => {
+	e.stopImmediatePropagation();
 	if (tree_selected.node && allow_to_add) {
 		setIconState();
 		budding_crafting({ setEnterEvent: enterFolderEvent, icon: '<i class="fa-solid fa-folder"></i>', thisIsFolder: true });
@@ -128,13 +130,14 @@ function destroyWhenBlur(dom) {
 function enterFileEvent(input) {
 	input.addEventListener("keypress", (e) => {
 		if (e.key === "Enter" && input.value) {
+			console.log(tree_selected);
 			const file_data = { _belong: tree_selected.attrs._id, _root: data_id, name: input.value };
 			file_controller.create(file_data, (res) => {
 				if (res.action) {
 					isBlur = false;
 					bud_queue = null;
 					allow_to_add = true;
-					const file_obj = new FILE();
+					const file_obj = new FILE({ name: input.value });
 					const file_entity = file_obj.create_file(file_data);
 					input.parentNode.parentNode.appendChild(file_entity);
 					try {
@@ -172,7 +175,7 @@ function enterFolderEvent(input) {
 }
 const window_entity = new INTERACTIVE(document.body);
 window_entity.control((on) => {
-	on.click(() => {
+	on.click((thisWindow, e) => {
 		if (tree_selected.node) {
 			tree_selected.node.classList.remove("selected");
 			tree_selected.node = undefined;
