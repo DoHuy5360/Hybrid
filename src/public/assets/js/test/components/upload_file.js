@@ -1,4 +1,4 @@
-import FOLDER, { tree_selected } from "../../class/folder.js";
+import FOLDER, { previous_context_menu, tree_selected } from "../../class/folder.js";
 import FILE from "../../class/file.js";
 import DOM_FACTORY from "../../class/dom_factory.js";
 import FOLDER_CONTROLLER from "../../controllers/folderController.js";
@@ -181,5 +181,15 @@ window_entity.control((on) => {
 			tree_selected.node = undefined;
 		}
 		tree_selected.attrs = undefined;
+		if (previous_context_menu.node) {
+			previous_context_menu.node.remove();
+			previous_context_menu.file.classList.remove("context");
+		}
+	});
+	on.contextmenu(() => {
+		if (previous_context_menu.node) {
+			previous_context_menu.node.remove();
+			previous_context_menu.file.classList.remove("context");
+		}
 	});
 });

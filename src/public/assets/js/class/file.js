@@ -55,6 +55,7 @@ class FILE extends DOM_FACTORY {
 				const { clientX, clientY } = e;
 				if (previous_context_menu.node) {
 					previous_context_menu.node.remove();
+					previous_context_menu.file.classList.remove("context");
 				}
 				let context_menu = new CONTEXTMENU();
 				context_menu.use_default_style();
@@ -76,6 +77,8 @@ class FILE extends DOM_FACTORY {
 
 				context_menu.set_position({ x: clientX, y: clientY });
 				previous_context_menu.node = context_menu.entity;
+				previous_context_menu.file = leaf;
+				leaf.classList.add("context");
 			});
 		});
 		return leaf;

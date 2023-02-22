@@ -6,16 +6,12 @@ class CONTEXTMENU extends DOM_FACTORY {
 		this.entity = this.create({ type: "div" });
 	}
 	use_default_style() {
-		Object.assign(this.entity.style, {
-			position: "fixed",
-			background: "#343746",
-			color: "#f5f5f5",
-			transform: "translateX(-100%)",
-			width: "300px",
-			padding: "3px",
-			"border-radius": "3px",
-			"font-size": ".8rem",
-			"user-select": "none",
+		this.entity.setAttribute("class", "tree-context");
+		this.identify = this.entity;
+		this.control((on) => {
+			on.contextmenu((thisContext, e) => {
+				e.preventDefault();
+			});
 		});
 	}
 	set_style(css) {
