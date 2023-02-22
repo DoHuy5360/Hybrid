@@ -6,7 +6,9 @@ export let tree_selected = {
 	node: undefined,
 	attrs: undefined,
 };
-let previous_context_menu;
+export let previous_context_menu = {
+	node: undefined,
+};
 class FOLDER extends DOM_FACTORY {
 	constructor() {
 		super();
@@ -25,8 +27,8 @@ class FOLDER extends DOM_FACTORY {
 		this.identify = tree;
 		this.control((on) => {
 			on.click(() => {
-				if (previous_context_menu) {
-					previous_context_menu.remove();
+				if (previous_context_menu.node) {
+					previous_context_menu.node.remove();
 				}
 				branch.querySelector(".branch-view").classList.toggle("visible");
 				if (tree.firstChild === this.folder_close_icon) {
@@ -46,8 +48,8 @@ class FOLDER extends DOM_FACTORY {
 			on.contextmenu((thisFolder, e) => {
 				e.preventDefault();
 				const { clientX, clientY } = e;
-				if (previous_context_menu) {
-					previous_context_menu.remove();
+				if (previous_context_menu.node) {
+					previous_context_menu.node.remove();
 				}
 				let context_menu = new CONTEXTMENU();
 				context_menu.use_default_style();
@@ -68,7 +70,7 @@ class FOLDER extends DOM_FACTORY {
 				document.body.appendChild(context_menu.entity);
 
 				context_menu.set_position({ x: clientX, y: clientY });
-				previous_context_menu = context_menu.entity;
+				previous_context_menu.node = context_menu.entity;
 			});
 		});
 

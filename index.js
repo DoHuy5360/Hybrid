@@ -3,7 +3,7 @@ import { fileURLToPath } from "url";
 import { dirname } from "path";
 import path from "path";
 import fs from "fs";
-import { getFiles, storeFileContent, storeNewFile } from "./src/controllers/fileController.js";
+import { getFiles, putFileToTrash, storeFileContent, storeNewFile } from "./src/controllers/fileController.js";
 import { getFolders, putFolderToTrash, storeNewFolder } from "./src/controllers/folderController.js";
 import { createRootFolder, inspect } from "./src/controllers/rootController.js";
 
@@ -49,6 +49,7 @@ app.post("/inspect", createRootFolder);
 
 app.get("/file", getFiles);
 app.post("/file", storeNewFile);
+app.delete("/file", putFileToTrash);
 app.post("/file/content", storeFileContent);
 app.get("/folder", getFolders);
 app.post("/folder", storeNewFolder);
