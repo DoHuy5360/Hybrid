@@ -37,7 +37,6 @@ class FILE extends DOM_FACTORY {
 				if (!this.open) {
 					content_table = table_entity.create_content_table(this);
 					tab = tab_entity.create_tab(this, content_table);
-					tab_logic.replace_handle({ domObject: tab, className: "selected" });
 					file_name.appendChild(tab);
 					laboratory.appendChild(content_table);
 					content_table.value = this.content;
