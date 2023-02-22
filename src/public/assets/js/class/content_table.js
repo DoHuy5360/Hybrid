@@ -1,10 +1,11 @@
 import DOM_FACTORY from "./dom_factory.js";
 import { file_name } from "./file.js";
 import { file_selected } from "./file.js";
+import { tab_selected } from "./tab.js";
 class CONTENT_TABLE extends DOM_FACTORY {
 	constructor() {
 		super();
-		this.change_sign = this.convert_to_dom('<i class="fa-solid fa-circle-notch"></i>');
+		this.change_sign = this.convert_to_dom('<div class="change-sign"><i class="fa-solid fa-circle-notch"></i></div>');
 		this.file_name_changed = false;
 	}
 	create_content_table(file_reference) {
@@ -33,7 +34,7 @@ class CONTENT_TABLE extends DOM_FACTORY {
 			});
 			on.input(() => {
 				if (!this.file_name_changed) {
-					file_name.appendChild(this.change_sign);
+					tab_selected.node.prepend(this.change_sign);
 					this.file_name_changed = true;
 				}
 			});

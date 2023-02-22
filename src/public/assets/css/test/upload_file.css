@@ -16,6 +16,7 @@
 .wrap-de {
 	display: flex;
 	height: 30px;
+	background-color: #66c5ff;
 }
 .de {
 	width: 100%;
@@ -144,7 +145,7 @@
 	color: #f5f5f5;
 	display: flex;
 	align-items: center;
-	gap: 5px;
+	gap: 1px;
 	font-size: 0.8rem;
 }
 .tab {
@@ -173,4 +174,19 @@
 .close-tab:hover {
 	background-color: #f3b6c2;
 	color: #21222c;
+}
+.change-sign {
+	width: 15px;
+	aspect-ratio: 1;
+	display: grid;
+	place-items: center;
+	animation: spin 3000ms linear infinite;
+}
+@keyframes spin {
+	from {
+		transform: rotate(0);
+	}
+	to {
+		transform: rotate(360deg);
+	}
 }

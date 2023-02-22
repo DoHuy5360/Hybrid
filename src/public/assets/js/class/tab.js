@@ -17,15 +17,12 @@ class TAB extends DOM_FACTORY {
 		this.close_sign.addEventListener("click", (e) => {
 			e.stopImmediatePropagation();
 			if (tab_selected.node === file_tab) {
-				const last_tab = [...document.querySelectorAll(".tab")].at(-1);
-				if (last_tab) {
-					const beside_tab = tab_logic.previous.previousSibling || tab_logic.previous.nextSibling;
-					const beside_table = table_logic.previous.previousSibling || tab_logic.previous.nextSibling;
-					if (beside_tab && beside_table) {
-						tab_logic.replace_handle({ domObject: beside_tab, className: "selected" });
-						table_logic.replace_handle({ domObject: beside_table, className: "selected" });
-						tab_selected.node = beside_tab;
-					}
+				const beside_tab = tab_logic.previous.previousSibling || tab_logic.previous.nextSibling;
+				const beside_table = table_logic.previous.previousSibling || tab_logic.previous.nextSibling;
+				if (beside_tab && beside_table) {
+					tab_logic.replace_handle({ domObject: beside_tab, className: "selected" });
+					table_logic.replace_handle({ domObject: beside_table, className: "selected" });
+					tab_selected.node = beside_tab;
 				}
 			}
 			content_table.remove();
@@ -33,7 +30,6 @@ class TAB extends DOM_FACTORY {
 			file_reference.open = false;
 		});
 		file_tab.addEventListener("click", (e) => {
-			console.log("tab clicked");
 			if (tab_selected.node !== file_tab) {
 				tab_logic.replace_handle({ domObject: file_tab, className: "selected" });
 				table_logic.replace_handle({ domObject: content_table, className: "selected" });
