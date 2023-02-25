@@ -15,8 +15,10 @@ const storeNewFile = async (req, res) => {
 				action: false,
 			});
 		} else {
+			const { _id } = doc;
 			res.json({
 				action: true,
+				_id,
 			});
 		}
 	});

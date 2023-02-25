@@ -1,10 +1,11 @@
 import FOLDER, { previous_context_menu, tree_selected } from "../../class/folder.js";
-import FILE from "../../class/file.js";
+import FILE, { file_name, file_selected } from "../../class/file.js";
 import DOM_FACTORY from "../../class/dom_factory.js";
 import FOLDER_CONTROLLER from "../../controllers/folderController.js";
 import FILE_CONTROLLER from "../../controllers/fileController.js";
 import INTERACTIVE from "../../class/interactive.js";
-
+import CONTENT_TABLE from "../../class/content_table.js";
+import TAB, { tab_logic, table_logic, tab_selected } from "../../class/tab.js";
 const file_controller = new FILE_CONTROLLER();
 const folder_controller = new FOLDER_CONTROLLER();
 
@@ -39,7 +40,7 @@ function setIconState() {
 	tree_selected.node.firstChild.remove();
 	tree_selected.node.prepend(dom_obj.convert_to_dom('<i class="fa-regular fa-folder-open"></i>'));
 }
-let bud_queue;
+let input_queue;
 function budding_crafting({ setEnterEvent, icon, thisIsFolder }) {
 	// display branch view
 	const parent_tree = tree_selected.node.parentNode;
@@ -55,14 +56,14 @@ function budding_crafting({ setEnterEvent, icon, thisIsFolder }) {
 	shoot_wrapper.insertAdjacentHTML("afterbegin", icon);
 	shoot_wrapper.appendChild(input);
 	wrap_input.appendChild(shoot_wrapper);
-	if (bud_queue) {
-		bud_queue.remove();
+	if (input_queue) {
+		input_queue.remove();
 	}
-	bud_queue = wrap_input;
+	input_queue = wrap_input;
 	if (thisIsFolder) {
-		container.prepend(bud_queue);
+		container.prepend(input_queue);
 	} else {
-		container.appendChild(bud_queue);
+		container.appendChild(input_queue);
 	}
 	input.focus();
 }
@@ -112,15 +113,15 @@ add_folder.addEventListener("click", (e) => {
 		input.focus();
 	}
 });
-let isBlur = true;
+let focus_input = true;
 function destroyWhenBlur(dom) {
 	dom.addEventListener("blur", (e) => {
 		allow_to_add = true;
 		try {
-			if (isBlur) {
+			if (focus_input) {
 				dom.parentNode.remove();
 			} else {
-				isBlur = true;
+				focus_input = true;
 			}
 		} catch (err) {
 			// console.log(err);
@@ -130,16 +131,27 @@ function destroyWhenBlur(dom) {
 function enterFileEvent(input) {
 	input.addEventListener("keypress", (e) => {
 		if (e.key === "Enter" && input.value) {
-			console.log(tree_selected);
 			const file_data = { _belong: tree_selected.attrs._id, _root: data_id, name: input.value };
 			file_controller.create(file_data, (res) => {
 				if (res.action) {
-					isBlur = false;
-					bud_queue = null;
+					file_data._id= res._id
+					focus_input = false;
+					input_queue = null;
 					allow_to_add = true;
 					const file_obj = new FILE(file_data);
 					const file_entity = file_obj.create_file(file_data);
 					input.parentNode.parentNode.appendChild(file_entity);
+					const table_entity = new CONTENT_TABLE();
+					const table = table_entity.create_content_table(file_obj);
+					const tab_entity = new TAB();
+					const tab = tab_entity.create_tab(file_obj, table);
+					file_name.appendChild(tab);
+					laboratory.appendChild(table);
+					tab_logic.replace_handle({ domObject: tab, className: "selected" });
+					table_logic.replace_handle({ domObject: table, className: "selected" });
+					table.focus()
+					tab_selected.node = tab;
+					file_selected.attrs = file_data
 					try {
 						input.parentNode.remove();
 					} catch (err) {
@@ -157,8 +169,8 @@ function enterFolderEvent(input) {
 			folder_controller.create(folder_data, (res) => {
 				if (res.action) {
 					folder_data._id = res._id;
-					isBlur = false;
-					bud_queue = null;
+					focus_input = false;
+					input_queue = null;
 					allow_to_add = true;
 					const folder_obj = new FOLDER();
 					const folder_entity = folder_obj.create_folder(folder_data);

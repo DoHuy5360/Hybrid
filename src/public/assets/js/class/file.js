@@ -9,7 +9,7 @@ import { tab_logic } from "./tab.js";
 // const origin_sign = '<i class="fa-solid fa-xmark"></i>';
 
 export const file_name = document.querySelector(".file-name");
-const laboratory = document.querySelector(".laboratory");
+export const laboratory = document.querySelector(".laboratory");
 export let file_selected = {
 	previous: undefined,
 	node: undefined,
