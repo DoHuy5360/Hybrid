@@ -1,7 +1,7 @@
 import file_model from "../database/models/fileModel.js";
 
 const getFiles = async (req, res) => {
-	const files_collection = await file_model.find();
+	const files_collection = await file_model.find({ inTrash: false });
 	res.json({
 		files_collection,
 	});
@@ -15,8 +15,10 @@ const storeNewFile = async (req, res) => {
 				action: false,
 			});
 		} else {
+			const { _id } = doc;
 			res.json({
 				action: true,
+				_id,
 			});
 		}
 	});
